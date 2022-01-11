@@ -9,10 +9,72 @@ Class {
 
 { #category : #tests }
 MiCoUsageVisualizationTest >> test01Basic [
-	| v |
-	v := MiCoUsageVisualization new.
+	| v class |
+	v := MiCoUsageMapVisualization new.
+	v build.
+	self assert: v canvas nodes size equals: 0.
+	class := ZnUrl.
+	v godClass: class.
+	v build.
+	self assert: v godClass equals: class.
+	self assert: v miMethods size equals: class methods size.
+	self assert: v miAttributes size equals: class instVarNames size.
+	self assert: v canvas nodes size equals: class methods size.
+	
+	
+	
+]
+
+{ #category : #tests }
+MiCoUsageVisualizationTest >> test02MethodsAttributes [
+	| v class method attribute |
+	v := MiCoUsageMapVisualization new.
+	class := MiCoTestClass.
+	v godClass: class.
+	v build.
+	self assert: v miMethods size equals: class methods size.
+	self assert: v miAttributes size equals: class instVarNames size.
+	method := v methodNamed: #method1.
+	
+	self assert: method class equals: MiCoMethod.
+	self assert: method usedAttributes size equals: 2.
+	self assert: method usedAttributes first class equals: MiCoAttribute.
+	
+	method := v methodNamed: #method2.
+	self assert: method usedAttributes size equals: 0.
+	
+	method := v methodNamed: #method3.
+	self assert: method usedAttributes size equals: 3.
+	
+	attribute := v attributeNamed: #var2.
+	self assert: attribute usedInMethods size equals: 2.
+	
+	attribute := v attributeNamed: #var4.
+	self assert: attribute usedInMethods size equals: 1.
+	
+	attribute := v attributeNamed: #var5.
+	self assert: attribute usedInMethods size equals: 0.
+]
+
+{ #category : #tests }
+MiCoUsageVisualizationTest >> test03AttributeWidth [
+	| v class method attribute shapes |
+	v := MiCoUsageMapVisualization new.
+	class := MiCoTestClass.
+	v godClass: class.
 	v build.
 	
-	self assert: v canvas nodes size equals: 0.
+	attribute := v attributeNamed: #var1.
+	method := v methodNamed: #method1.
+	shapes := v canvas deepShapesFromModel: attribute.
+	
+	self assert: shapes size equals: attribute usedInMethods size.
+	self assert: (attribute numberOfUsesOn: method) equals: 3.
+	
+	attribute := v attributeNamed: #var4.
+	method := v methodNamed: #method3.
+	self assert: (attribute numberOfUsesOn: method) equals: 1.
+	
+	
 	
 ]
