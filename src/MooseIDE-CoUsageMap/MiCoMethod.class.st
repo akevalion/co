@@ -50,18 +50,6 @@ MiCoMethod >> selector: aByteString [
 ]
 
 { #category : #accessing }
-MiCoMethod >> sourceCode [
-
-	^ sourceCode
-]
-
-{ #category : #accessing }
-MiCoMethod >> sourceCode: anObject [
-
-	sourceCode := anObject
-]
-
-{ #category : #accessing }
 MiCoMethod >> usedAttributes [
 
 	^ usedAttributes

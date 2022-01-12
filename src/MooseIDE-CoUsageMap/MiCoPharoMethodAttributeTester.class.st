@@ -7,16 +7,14 @@ Class {
 	#category : #'MooseIDE-CoUsageMap'
 }
 
-{ #category : #testing }
-MiCoPharoMethodAttributeTester >> doesMethod: aMiCoMethod use: aMiCoAttribute [
-	| method attributeName |
-	method := aMiCoMethod rawMethod.
-	attributeName := aMiCoAttribute name.
-	^ method accessesSlot: (method methodClass slotNamed: attributeName)
-]
-
 { #category : #public }
-MiCoPharoMethodAttributeTester >> visitNode: aNode [
-	super visitNode: aNode.
-	self visitBlock value: aNode
+MiCoPharoMethodAttributeTester >> numberOfUsesOf: aMiCoAttribute on: aMiCoMethod [
+	| name method result |
+	name := aMiCoAttribute name.
+	method := aMiCoMethod rawMethod.
+	result := RBGenericNodeVisitor
+		visit: method ast
+		select: [ :node| node isInstanceVariable and: [ node name = name ] ].
+		
+	^ result size
 ]

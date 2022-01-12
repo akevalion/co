@@ -22,19 +22,6 @@ MiCoUsageMapVisualization >> attributeNamed: aByteString [
 ]
 
 { #category : #hooks }
-MiCoUsageMapVisualization >> attributeShapeFor: att [ 
-	^ RSBox new
-		model: att;
-		width: att usedInMethods size * 5;
-		noPaint;
-		border: (RSBorder new color: Color black);
-		when: RSMouseEnter send: #highlight: to: self;
-		when: RSMouseLeave send: #unhighlight: to: self;
-		popup;
-		yourself
-]
-
-{ #category : #hooks }
 MiCoUsageMapVisualization >> attributeShapeFor: att method: met [
 	^ RSBox new
 		model: att;
@@ -43,7 +30,9 @@ MiCoUsageMapVisualization >> attributeShapeFor: att method: met [
 		border: (RSBorder new color: Color black);
 		when: RSMouseEnter send: #highlight: to: self;
 		when: RSMouseLeave send: #unhighlight: to: self;
-		popup;
+		addInteraction: (RSMorphicPopupInteraction new
+			morphBuilder: [:model | self createTextMorphFor: model method: met ];
+			yourself);
 		yourself
 ]
 
@@ -55,6 +44,14 @@ MiCoUsageMapVisualization >> attributes [
 { #category : #accessing }
 MiCoUsageMapVisualization >> attributes: aCollection [
 	attributes := aCollection
+]
+
+{ #category : #hooks }
+MiCoUsageMapVisualization >> createTextMorphFor: model method: met [
+	^ (model asStringForMethod: met) asTextMorph
+		backgroundColor: (Color black alpha: 0.8);
+		margins: 15;
+		yourself
 ]
 
 { #category : #default }
@@ -141,6 +138,8 @@ MiCoUsageMapVisualization >> initializeValues [
 		initializeAttributes;
 		initializeMethods;
 		initializeReferences.
+	miMethods
+		sort: [ :met1 :met2 | met1 usedAttributes size > met2 usedAttributes size ].
 	
 ]
 

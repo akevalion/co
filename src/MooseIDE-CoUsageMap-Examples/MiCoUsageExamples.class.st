@@ -8,18 +8,6 @@ Class {
 }
 
 { #category : #examples }
-MiCoUsageExamples >> example01 [
-	<script: 'self new example01 open '>
-	| v attributes methods |
-	attributes := #().
-	methods := #().
-	v := MiCoUsageVisualization new.
-	v attributes: attributes.
-	v methods: methods.
-	^ v
-]
-
-{ #category : #examples }
 MiCoUsageExamples >> example01Empty [
 	<script: 'self new example01Empty open '>
 	| v attributes methods |
@@ -37,9 +25,6 @@ MiCoUsageExamples >> example02RandomGodClass [
 	| v |
 	v := MiCoUsageMapVisualization new.
 	v godClass: self randomGodClass.
-	v layout: (RSRectanglePackLayout new
-		doNotUseProgressBar;
-		yourself).
 	^ v
 ]
 
