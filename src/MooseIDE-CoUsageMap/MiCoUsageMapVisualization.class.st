@@ -11,7 +11,8 @@ Class {
 		'godClass',
 		'miMethods',
 		'miAttributes',
-		'methodAttributeTester'
+		'methodAttributeTester',
+		'legendTagVisualization'
 	],
 	#category : #'MooseIDE-CoUsageMap'
 }
@@ -62,6 +63,11 @@ MiCoUsageMapVisualization >> defaultLayout [
 ]
 
 { #category : #default }
+MiCoUsageMapVisualization >> defaultLegendTagVisualization [
+	^ MiCoTagVisualization new
+]
+
+{ #category : #default }
 MiCoUsageMapVisualization >> defaultTester [
 	^ MiCoPharoMethodAttributeTester new
 ]
@@ -99,7 +105,8 @@ MiCoUsageMapVisualization >> initialize [
 		attributes: #();
 		methods: #();
 		layout: self defaultLayout;
-		methodAttributeTester: self defaultTester.
+		methodAttributeTester: self defaultTester;
+		legendTagVisualization: self defaultLegendTagVisualization.
 ]
 
 { #category : #initialization }
@@ -164,6 +171,16 @@ MiCoUsageMapVisualization >> layout [
 { #category : #accessing }
 MiCoUsageMapVisualization >> layout: aRSLayout [
 	layout := aRSLayout
+]
+
+{ #category : #accessing }
+MiCoUsageMapVisualization >> legendTagVisualization [
+	^ legendTagVisualization
+]
+
+{ #category : #accessing }
+MiCoUsageMapVisualization >> legendTagVisualization: aMiCoTagVisualization [ 
+	legendTagVisualization := aMiCoTagVisualization
 ]
 
 { #category : #accessing }
@@ -240,7 +257,7 @@ MiCoUsageMapVisualization >> open [
 	| window morph scrollPane |
 	self build.
 	morph := self canvas createMorph.
-	morph extent: self canvas fixedShapes encompassingRectangle extent+20.
+	morph extent: self canvas fixedShapes encompassingRectangle extent+50.
 	window := SystemWindow new.
 	scrollPane := ScrollPane new.
 	scrollPane scroller addMorph: morph.
@@ -259,6 +276,7 @@ MiCoUsageMapVisualization >> renderIn: aCanvas [
 	shapes := self miMethods collect: [ :met | self methodShapeFor: met ].
 	aCanvas addAll: shapes.
 	self layout on: shapes.
+	self legendTagVisualization renderIn: aCanvas.
 	
 ]
 

@@ -3,7 +3,7 @@ Model for attributes
 "
 Class {
 	#name : #MiCoAttribute,
-	#superclass : #Object,
+	#superclass : #MiCoTaggedObject,
 	#instVars : [
 		'name',
 		'usedInMethods'

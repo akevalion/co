@@ -3,7 +3,7 @@ Model for methods
 "
 Class {
 	#name : #MiCoMethod,
-	#superclass : #Object,
+	#superclass : #MiCoTaggedObject,
 	#instVars : [
 		'selector',
 		'usedAttributes',

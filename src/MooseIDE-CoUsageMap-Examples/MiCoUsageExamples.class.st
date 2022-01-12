@@ -25,6 +25,19 @@ MiCoUsageExamples >> example02RandomGodClass [
 	| v |
 	v := MiCoUsageMapVisualization new.
 	v godClass: self randomGodClass.
+	v legendTagVisualization 
+		conflicTag: (MiCoTag new
+			label: 'need work';
+			color: Color gray;
+			yourself);
+		addTag: (MiCoTag new
+			label: 'Frame';
+			color: Color lightBlue;
+			yourself);
+		addTag: (MiCoTag new
+			label: 'Connection';
+			color: Color green;
+		yourself).
 	^ v
 ]
 
@@ -35,8 +48,8 @@ MiCoUsageExamples >> randomGodClass [
 	allClasses := RPackage organizer packages 
 		flatCollect: [ :pkg | pkg definedClasses ].
 	godClasses := allClasses select: [ :cls | 
-		cls numberOfVariables > 5 
-			and: [ cls methods size > 20 
+		cls numberOfVariables > 8 
+			and: [ cls methods size > 30
 				and: [ cls linesOfCode > 300 ] ] ].
 	
 	^ godClasses atRandom

@@ -78,3 +78,34 @@ MiCoUsageVisualizationTest >> test03AttributeWidth [
 	
 	
 ]
+
+{ #category : #tests }
+MiCoUsageVisualizationTest >> test04Legend [
+	| v class tv |
+	v := MiCoUsageMapVisualization new.
+	class := MiCoTestClass.
+	v godClass: class.
+	tv := MiCoTagVisualization new.
+	v legendTagVisualization: tv.
+	v build.
+	"The title and the box description"
+	self assert: tv shapes size equals: 2.
+	
+	tv conflicTag: (MiCoTag new
+		label: 'need work';
+		color: Color gray;
+		yourself).
+	tv addTag: (MiCoTag new
+		label: 'Frame';
+		color: Color lightBlue;
+		yourself).
+	tv addTag: (MiCoTag new
+		label: 'Connection';
+		color: Color green;
+		yourself).
+	v build.
+	self assert: tv shapes size equals: 5.
+	
+	
+	
+]
