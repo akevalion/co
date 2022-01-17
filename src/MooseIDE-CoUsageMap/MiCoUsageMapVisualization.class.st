@@ -12,7 +12,8 @@ Class {
 		'miMethods',
 		'miAttributes',
 		'methodAttributeTester',
-		'legendTagVisualization'
+		'legendTagVisualization',
+		'markManager'
 	],
 	#category : #'MooseIDE-CoUsageMap'
 }
@@ -29,12 +30,14 @@ MiCoUsageMapVisualization >> attributeShapeFor: att method: met [
 		width: (att numberOfUsesOn: met) * 5;
 		noPaint;
 		border: (RSBorder new color: Color black);
+		addInteraction: self markManager;
 		when: RSMouseEnter send: #highlight: to: self;
 		when: RSMouseLeave send: #unhighlight: to: self;
 		addInteraction: (RSMorphicPopupInteraction new
-			morphBuilder: [:model | self createTextMorphFor: model method: met ];
+			morphBuilder: [:model | 
+				self createAttributeTextMorphFor: model method: met ];
 			yourself);
-		yourself
+		yourself.
 ]
 
 { #category : #accessing }
@@ -48,8 +51,16 @@ MiCoUsageMapVisualization >> attributes: aCollection [
 ]
 
 { #category : #hooks }
-MiCoUsageMapVisualization >> createTextMorphFor: model method: met [
+MiCoUsageMapVisualization >> createAttributeTextMorphFor: model method: met [
 	^ (model asStringForMethod: met) asTextMorph
+		backgroundColor: (Color black alpha: 0.8);
+		margins: 15;
+		yourself
+]
+
+{ #category : #hooks }
+MiCoUsageMapVisualization >> createMethodTextMorphFor: model [
+	^ model asString asTextMorph
 		backgroundColor: (Color black alpha: 0.8);
 		margins: 15;
 		yourself
@@ -65,6 +76,23 @@ MiCoUsageMapVisualization >> defaultLayout [
 { #category : #default }
 MiCoUsageMapVisualization >> defaultLegendTagVisualization [
 	^ MiCoTagVisualization new
+]
+
+{ #category : #default }
+MiCoUsageMapVisualization >> defaultMarkManager [
+	^ MiCoMarkManager new
+]
+
+{ #category : #default }
+MiCoUsageMapVisualization >> defaultSortBlock [
+	^ [ :met1 :met2 | 
+		| size1 size2 |
+		size1 := met1 usedAttributes size.
+		size2 := met2 usedAttributes size.
+		size1 = size2 
+			ifTrue: [ met1 selector < met2 selector ]
+			ifFalse: [ size1 > size2 ]
+		 ].
 ]
 
 { #category : #default }
@@ -106,7 +134,8 @@ MiCoUsageMapVisualization >> initialize [
 		methods: #();
 		layout: self defaultLayout;
 		methodAttributeTester: self defaultTester;
-		legendTagVisualization: self defaultLegendTagVisualization.
+		legendTagVisualization: self defaultLegendTagVisualization;
+		markManager: self defaultMarkManager.
 ]
 
 { #category : #initialization }
@@ -145,8 +174,7 @@ MiCoUsageMapVisualization >> initializeValues [
 		initializeAttributes;
 		initializeMethods;
 		initializeReferences.
-	miMethods
-		sort: [ :met1 :met2 | met1 usedAttributes size > met2 usedAttributes size ].
+	miMethods sort: self defaultSortBlock
 	
 ]
 
@@ -181,6 +209,17 @@ MiCoUsageMapVisualization >> legendTagVisualization [
 { #category : #accessing }
 MiCoUsageMapVisualization >> legendTagVisualization: aMiCoTagVisualization [ 
 	legendTagVisualization := aMiCoTagVisualization
+]
+
+{ #category : #accessing }
+MiCoUsageMapVisualization >> markManager [
+	^ markManager
+]
+
+{ #category : #accessing }
+MiCoUsageMapVisualization >> markManager: aMiCoMarkManager [
+	markManager := aMiCoMarkManager.
+	markManager coUsageMap: self.
 ]
 
 { #category : #accessing }
@@ -227,7 +266,10 @@ MiCoUsageMapVisualization >> methodShapeFor: met [
 		gapSize: 0;
 		on: { label. body }.
 	^ ({ label. body } asGroup asShapeFor: met)
-		popup;
+		addInteraction: (RSMorphicPopupInteraction new
+			morphBuilder: [:model | 
+				self createMethodTextMorphFor: model ];
+			yourself);
 		isFixed: true;
 		yourself
 ]
@@ -278,6 +320,11 @@ MiCoUsageMapVisualization >> renderIn: aCanvas [
 	self layout on: shapes.
 	self legendTagVisualization renderIn: aCanvas.
 	
+]
+
+{ #category : #accessing }
+MiCoUsageMapVisualization >> tagNamed: aString [ 
+	^ self legendTagVisualization tagNamed: aString
 ]
 
 { #category : #highlighting }

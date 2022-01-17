@@ -26,6 +26,20 @@ MiCoTagVisualization >> conflicTag: aMiCoTag [
 	conflicTag := aMiCoTag
 ]
 
+{ #category : #public }
+MiCoTagVisualization >> conflicTag: aString tags: aCollection [ 
+	self conflicTag: aString tags: aCollection colorPalette: NSScale category20
+]
+
+{ #category : #public }
+MiCoTagVisualization >> conflicTag: aString tags: aCollection colorPalette: aNSOrdinalScale [ 
+	self conflicTag: (MiCoTag new label: aString; yourself).
+	aCollection do: [:str |
+		self addTag: (MiCoTag new label: str; yourself) ].
+	{ conflicTag  }, self tags do: [ :tag |
+		tag color: (aNSOrdinalScale scale: tag) ]
+]
+
 { #category : #initialization }
 MiCoTagVisualization >> initialize [
 	super initialize.
@@ -73,7 +87,7 @@ MiCoTagVisualization >> renderIn: aCanvas [
 	shapes add: self shapeBoxDescription.
 	
 	RSVerticalLineLayout new
-		gapSize: 5;
+		gapSize: 2;
 		on: shapes.
 	self legendShapeRenderIn: aCanvas.
 ]
@@ -105,6 +119,11 @@ MiCoTagVisualization >> shapeBoxDescription [
 	RSHorizontalLineLayout new gapSize: 5; on: { { box. arrow } asGroup. label }.
 	^ { box. arrow. label } asGroup asShape
 		
+]
+
+{ #category : #accessing }
+MiCoTagVisualization >> tagNamed: aString [ 
+	^ self tags detect: [ :tag | tag label = aString ] ifNone: [ nil ]
 ]
 
 { #category : #hooks }

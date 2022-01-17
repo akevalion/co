@@ -109,3 +109,23 @@ MiCoUsageVisualizationTest >> test04Legend [
 	
 	
 ]
+
+{ #category : #tests }
+MiCoUsageVisualizationTest >> test05MarkingAttributes [
+	| v class attribute tag |
+	v := MiCoUsageMapVisualization new.
+	class := MiCoTestClass.
+	v godClass: class.
+	v legendTagVisualization
+		conflicTag: 'need work' tags: { 'Frame'. 'Connection'  }.
+	v build.
+	
+	tag := v tagNamed: 'Frame'.
+	attribute := v attributeNamed: 'var2'.
+	v markManager
+		setTag: tag 
+		onAttribute: attribute.
+	self assert: ((v canvas deepShapesFromModel: attribute) 
+		allSatisfy: [ :shape | 
+			shape color = tag color ]).
+]

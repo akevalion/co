@@ -25,19 +25,8 @@ MiCoUsageExamples >> example02RandomGodClass [
 	| v |
 	v := MiCoUsageMapVisualization new.
 	v godClass: self randomGodClass.
-	v legendTagVisualization 
-		conflicTag: (MiCoTag new
-			label: 'need work';
-			color: Color gray;
-			yourself);
-		addTag: (MiCoTag new
-			label: 'Frame';
-			color: Color lightBlue;
-			yourself);
-		addTag: (MiCoTag new
-			label: 'Connection';
-			color: Color green;
-		yourself).
+	v legendTagVisualization
+		conflicTag: 'need work' tags: { 'Frame'. 'Connection'  }.
 	^ v
 ]
 

@@ -16,7 +16,7 @@ MiCoTagTest >> testBasicAttribute [
 		yourself.
 		
 	attribute1 := MiCoAttribute new name: 'var1'.
-	attribute2 := MiCoAttribute new name: 'var1'.
+	attribute2 := MiCoAttribute new name: 'var2'.
 	attribute1 tag: tag.
 	attribute2 tag: tag.
 	self assert: tag numberOfReferences equals: 2.
@@ -41,4 +41,32 @@ MiCoTagTest >> testBasicMethod [
 	self assert: method1 tag equals: tag.
 	
 
+]
+
+{ #category : #tests }
+MiCoTagTest >> testSettingTags [
+	| tag1 tag2 attribute1 attribute2 |
+	tag1 := MiCoTag new
+		label: 'Frame';
+		color: Color green;
+		yourself.
+	tag2 := MiCoTag new
+		label: 'Connection';
+		color: Color red;
+		yourself.
+		
+	attribute1 := MiCoAttribute new name: 'var1'.
+	attribute2 := MiCoAttribute new name: 'var2'.
+	attribute1 tag: tag1.
+	attribute2 tag: tag1.
+	self assert: tag1 numberOfReferences equals: 2.
+	self assert: attribute1 tag equals: tag1.
+	
+	self assert: tag2 numberOfReferences equals: 0.
+	attribute1 tag: tag2.
+	self assert: tag1 numberOfReferences equals: 1.
+	self assert: tag2 numberOfReferences equals: 1.
+	
+	attribute2 tag: nil.
+	self assert: tag1 numberOfReferences equals: 0.
 ]
