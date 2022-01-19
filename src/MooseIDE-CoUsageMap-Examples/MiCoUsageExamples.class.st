@@ -25,14 +25,57 @@ MiCoUsageExamples >> example02RandomGodClass [
 	| v |
 	v := MiCoUsageMapVisualization new.
 	v godClass: self randomGodClass.
-	v legendTagVisualization
-		conflicTag: 'need work' tags: { 'Frame'. 'Connection'  }.
+	v legendTag
+		conflictTag: 'need work' tags: { 'Frame'. 'Connection'. 'Test'. 'Base' }.
+	^ v
+]
+
+{ #category : #examples }
+MiCoUsageExamples >> example03SystemWindow [
+	<script: 'self new example03SystemWindow open'>
+	| v |
+	v := MiCoUsageMapVisualization new.
+	v godClass: SystemWindow.
+	v legendTag
+		conflictTag: 'need work' tags: { 'Frame'. 'Connection'. 'Test'. 'Base' }.
+	^ v
+]
+
+{ #category : #examples }
+MiCoUsageExamples >> example04PNGReadWriter [
+	<script: 'self new example04PNGReadWriter open'>
+	| v |
+	v := MiCoUsageMapVisualization new.
+	v godClass: PNGReadWriter.
+	v legendTag
+		conflictTag: 'need work' tags: { 'Frame'. 'Connection'. 'Test'. 'Base' }.
+	^ v
+]
+
+{ #category : #examples }
+MiCoUsageExamples >> example05FileList [
+	<script: 'self new example05FileList open'>
+	| v |
+	v := MiCoUsageMapVisualization new.
+	v godClass: FileList.
+	v legendTag
+		conflictTag: 'need work' tags: { 'Frame'. 'Connection'. 'Test'. 'Base' }.
+	^ v
+]
+
+{ #category : #examples }
+MiCoUsageExamples >> example06MCClassDefinition [
+	<script: 'self new example06MCClassDefinition open'>
+	| v |
+	v := MiCoUsageMapVisualization new.
+	v godClass: MCClassDefinition.
+	v legendTag
+		conflictTag: 'need work' tags: { 'Frame'. 'Connection'. 'Test'. 'Base' }.
 	^ v
 ]
 
 { #category : #accessing }
 MiCoUsageExamples >> randomGodClass [
-	<script: 'self new randomGodClass inspect'>
 	| allClasses godClasses |
 	allClasses := RPackage organizer packages 
 		flatCollect: [ :pkg | pkg definedClasses ].

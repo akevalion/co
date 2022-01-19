@@ -5,7 +5,6 @@ Class {
 	#name : #MiCoMethod,
 	#superclass : #MiCoTaggedObject,
 	#instVars : [
-		'selector',
 		'usedAttributes',
 		'rawMethod'
 	],
@@ -23,11 +22,6 @@ MiCoMethod >> initialize [
 	usedAttributes := OrderedCollection new: 5.
 ]
 
-{ #category : #printing }
-MiCoMethod >> printOn: s [
-	s nextPutAll: selector
-]
-
 { #category : #accessing }
 MiCoMethod >> rawMethod [
 	^ rawMethod
@@ -36,17 +30,6 @@ MiCoMethod >> rawMethod [
 { #category : #accessing }
 MiCoMethod >> rawMethod: anObject [
 	rawMethod := anObject
-]
-
-{ #category : #accessing }
-MiCoMethod >> selector [
-
-	^ selector
-]
-
-{ #category : #accessing }
-MiCoMethod >> selector: aByteString [
-	selector := aByteString
 ]
 
 { #category : #accessing }

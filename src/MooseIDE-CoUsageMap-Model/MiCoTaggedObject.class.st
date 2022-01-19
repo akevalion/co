@@ -5,10 +5,26 @@ Class {
 	#name : #MiCoTaggedObject,
 	#superclass : #Object,
 	#instVars : [
-		'tag'
+		'tag',
+		'name'
 	],
 	#category : #'MooseIDE-CoUsageMap-Model'
 }
+
+{ #category : #accessing }
+MiCoTaggedObject >> name [
+	^ name
+]
+
+{ #category : #accessing }
+MiCoTaggedObject >> name: aString [
+	name := aString
+]
+
+{ #category : #printing }
+MiCoTaggedObject >> printOn: s [
+	s nextPutAll: name
+]
 
 { #category : #accessing }
 MiCoTaggedObject >> tag [

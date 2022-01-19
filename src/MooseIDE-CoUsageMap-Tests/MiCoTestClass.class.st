@@ -9,7 +9,8 @@ Class {
 		'var2',
 		'var3',
 		'var4',
-		'var5'
+		'var5',
+		'var6'
 	],
 	#category : #'MooseIDE-CoUsageMap-Tests'
 }
@@ -30,4 +31,14 @@ MiCoTestClass >> method2 [
 MiCoTestClass >> method3 [
 	var4 ifNil: [ var2 := var3 := 3.1416 ]
 	
+]
+
+{ #category : #accessing }
+MiCoTestClass >> method4 [
+	var6 := var6 + 1.
+]
+
+{ #category : #accessing }
+MiCoTestClass >> method5 [
+	var6 := 3.1416.
 ]

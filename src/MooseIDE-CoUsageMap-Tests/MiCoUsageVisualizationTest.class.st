@@ -86,12 +86,12 @@ MiCoUsageVisualizationTest >> test04Legend [
 	class := MiCoTestClass.
 	v godClass: class.
 	tv := MiCoTagVisualization new.
-	v legendTagVisualization: tv.
+	v legendTag: tv.
 	v build.
 	"The title and the box description"
 	self assert: tv shapes size equals: 2.
 	
-	tv conflicTag: (MiCoTag new
+	tv conflictTag: (MiCoTag new
 		label: 'need work';
 		color: Color gray;
 		yourself).
@@ -116,8 +116,8 @@ MiCoUsageVisualizationTest >> test05MarkingAttributes [
 	v := MiCoUsageMapVisualization new.
 	class := MiCoTestClass.
 	v godClass: class.
-	v legendTagVisualization
-		conflicTag: 'need work' tags: { 'Frame'. 'Connection'  }.
+	v legendTag
+		conflictTag: 'need work' tags: { 'Frame'. 'Connection'  }.
 	v build.
 	
 	tag := v tagNamed: 'Frame'.

@@ -33,8 +33,8 @@ MiCoTagTest >> testBasicMethod [
 		color: Color green;
 		yourself.
 		
-	method1 := MiCoMethod new selector: 'method1'.
-	method2 := MiCoMethod new selector: 'method2'.
+	method1 := MiCoMethod new name: 'method1'.
+	method2 := MiCoMethod new name: 'method2'.
 	method1 tag: tag.
 	method2 tag: tag.
 	self assert: tag numberOfReferences equals: 2.

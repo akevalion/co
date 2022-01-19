@@ -5,7 +5,6 @@ Class {
 	#name : #MiCoAttribute,
 	#superclass : #MiCoTaggedObject,
 	#instVars : [
-		'name',
 		'usedInMethods'
 	],
 	#category : #'MooseIDE-CoUsageMap-Model'
@@ -27,17 +26,6 @@ MiCoAttribute >> method: aMiCoMethod counter: aNumber [
 	usedInMethods at: aMiCoMethod put: aNumber
 ]
 
-{ #category : #accessing }
-MiCoAttribute >> name [
-
-	^ name
-]
-
-{ #category : #accessing }
-MiCoAttribute >> name: aByteString [
-	name := aByteString
-]
-
 { #category : #public }
 MiCoAttribute >> numberOfUsesOn: aMiCoMethod [
 	^ usedInMethods at: aMiCoMethod
@@ -55,7 +43,7 @@ MiCoAttribute >> printForMethod: aMicoMethod on: stream [
 	n printOn: stream.
 	stream 
 		nextPutAll: ' access from this method(';
-		nextPutAll: aMicoMethod selector;
+		nextPutAll: aMicoMethod name;
 		nextPutAll: ')'.
 	numberOfUsers := self usedInMethods size - 1.
 	numberOfUsers <= 0 ifTrue: [ ^ self ].
@@ -71,11 +59,6 @@ MiCoAttribute >> printForMethod: aMicoMethod on: stream [
 		ifTrue: [ stream nextPutAll: 's' ]
 	
 	
-]
-
-{ #category : #printing }
-MiCoAttribute >> printOn: s [
-	s nextPutAll: name
 ]
 
 { #category : #accessing }
