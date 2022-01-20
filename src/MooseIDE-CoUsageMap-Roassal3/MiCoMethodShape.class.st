@@ -4,7 +4,7 @@ TODO
 Class {
 	#name : #MiCoMethodShape,
 	#superclass : #RSComposite,
-	#category : #'MooseIDE-CoUsageMap-Roassal3-MooseIDE-CoUsageMap-Roassal3'
+	#category : #'MooseIDE-CoUsageMap-Roassal3'
 }
 
 { #category : #accessing }
