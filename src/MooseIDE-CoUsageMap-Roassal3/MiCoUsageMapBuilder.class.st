@@ -57,7 +57,9 @@ MiCoUsageMapBuilder >> canvasController [
 { #category : #hooks }
 MiCoUsageMapBuilder >> createAttributeTextMorphFor: model method: met [
 	^ (model asStringForMethod: met) asTextMorph
-		backgroundColor: (Color black alpha: 0.8);
+		backgroundColor: (Smalltalk ui theme backgroundColor alpha: 0.8);
+		borderColor: Color black;
+		borderWidth: 1;
 		margins: 15;
 		yourself
 ]
@@ -65,7 +67,9 @@ MiCoUsageMapBuilder >> createAttributeTextMorphFor: model method: met [
 { #category : #hooks }
 MiCoUsageMapBuilder >> createMethodTextMorphFor: model [
 	^ model asString asTextMorph
-		backgroundColor: (Color black alpha: 0.8);
+		backgroundColor: (Smalltalk ui theme backgroundColor alpha: 0.8);
+		borderColor: Color black;
+		borderWidth: 1;
 		margins: 15;
 		yourself
 ]
