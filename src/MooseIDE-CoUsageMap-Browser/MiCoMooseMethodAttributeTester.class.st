@@ -1,7 +1,7 @@
 Class {
 	#name : #MiCoMooseMethodAttributeTester,
 	#superclass : #MiCoMethodAttributeTester,
-	#category : #'MooseIDE-CoUsageMap-Roassal3'
+	#category : #'MooseIDE-CoUsageMap-Browser'
 }
 
 { #category : #public }

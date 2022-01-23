@@ -4,7 +4,7 @@ TODO
 Class {
 	#name : #MiCoUsageMapMooseBuilder,
 	#superclass : #MiCoUsageMapBuilder,
-	#category : #'MooseIDE-CoUsageMap-Roassal3'
+	#category : #'MooseIDE-CoUsageMap-Browser'
 }
 
 { #category : #default }

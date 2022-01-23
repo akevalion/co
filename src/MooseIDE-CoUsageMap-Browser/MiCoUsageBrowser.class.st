@@ -8,7 +8,7 @@ Class {
 		'coUsageMap',
 		'classModel'
 	],
-	#category : #'MooseIDE-CoUsageMap-Roassal3'
+	#category : #'MooseIDE-CoUsageMap-Browser'
 }
 
 { #category : #'instance creation' }

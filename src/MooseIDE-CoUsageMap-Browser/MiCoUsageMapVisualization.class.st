@@ -4,7 +4,7 @@ TODO
 Class {
 	#name : #MiCoUsageMapVisualization,
 	#superclass : #MiAbstractVisualization,
-	#category : #'MooseIDE-CoUsageMap-Roassal3'
+	#category : #'MooseIDE-CoUsageMap-Browser'
 }
 
 { #category : #highlighting }
