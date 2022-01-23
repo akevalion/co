@@ -5,8 +5,7 @@ Class {
 	#name : #MiCoMethod,
 	#superclass : #MiCoTaggedObject,
 	#instVars : [
-		'usedAttributes',
-		'rawMethod'
+		'usedAttributes'
 	],
 	#category : #'MooseIDE-CoUsageMap-Model'
 }
@@ -20,16 +19,6 @@ MiCoMethod >> addAttribute: aMiCoAttribute [
 MiCoMethod >> initialize [
 	super initialize.
 	usedAttributes := OrderedCollection new: 5.
-]
-
-{ #category : #accessing }
-MiCoMethod >> rawMethod [
-	^ rawMethod
-]
-
-{ #category : #accessing }
-MiCoMethod >> rawMethod: anObject [
-	rawMethod := anObject
 ]
 
 { #category : #accessing }

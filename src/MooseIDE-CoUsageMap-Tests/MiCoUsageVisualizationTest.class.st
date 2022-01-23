@@ -10,7 +10,7 @@ Class {
 { #category : #tests }
 MiCoUsageVisualizationTest >> test01Basic [
 	| v class |
-	v := MiCoUsageMapVisualization new.
+	v := MiCoUsageMapBuilder new.
 	v build.
 	self assert: v canvas nodes size equals: 0.
 	class := ZnUrl.
@@ -28,7 +28,7 @@ MiCoUsageVisualizationTest >> test01Basic [
 { #category : #tests }
 MiCoUsageVisualizationTest >> test02MethodsAttributes [
 	| v class method attribute |
-	v := MiCoUsageMapVisualization new.
+	v := MiCoUsageMapBuilder new.
 	class := MiCoTestClass.
 	v godClass: class.
 	v build.
@@ -59,7 +59,7 @@ MiCoUsageVisualizationTest >> test02MethodsAttributes [
 { #category : #tests }
 MiCoUsageVisualizationTest >> test03AttributeWidth [
 	| v class method attribute shapes |
-	v := MiCoUsageMapVisualization new.
+	v := MiCoUsageMapBuilder new.
 	class := MiCoTestClass.
 	v godClass: class.
 	v build.
@@ -82,7 +82,7 @@ MiCoUsageVisualizationTest >> test03AttributeWidth [
 { #category : #tests }
 MiCoUsageVisualizationTest >> test04Legend [
 	| v class tv |
-	v := MiCoUsageMapVisualization new.
+	v := MiCoUsageMapBuilder new.
 	class := MiCoTestClass.
 	v godClass: class.
 	tv := MiCoTagVisualization new.
@@ -113,7 +113,7 @@ MiCoUsageVisualizationTest >> test04Legend [
 { #category : #tests }
 MiCoUsageVisualizationTest >> test05MarkingAttributes [
 	| v class attribute tag |
-	v := MiCoUsageMapVisualization new.
+	v := MiCoUsageMapBuilder new.
 	class := MiCoTestClass.
 	v godClass: class.
 	v legendTag

@@ -10,7 +10,7 @@ Class {
 { #category : #tests }
 MiCoMarkManagerTest >> test01ColorASingleMethod [
 	| v attribute tag shapes defaultColor method4 method5 |
-	v := MiCoUsageMapVisualization new.
+	v := MiCoUsageMapBuilder new.
 	v godClass: MiCoTestClass.
 	v legendTag
 		conflictTag: 'conflic' tags: { 'base'. 'simple' }. 

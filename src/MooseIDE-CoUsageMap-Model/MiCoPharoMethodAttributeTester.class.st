@@ -11,7 +11,7 @@ Class {
 MiCoPharoMethodAttributeTester >> numberOfUsesOf: aMiCoAttribute on: aMiCoMethod [
 	| name method result |
 	name := aMiCoAttribute name.
-	method := aMiCoMethod rawMethod.
+	method := aMiCoMethod rawObject.
 	result := RBGenericNodeVisitor
 		visit: method ast
 		select: [ :node| node isInstanceVariable and: [ node name = name ] ].

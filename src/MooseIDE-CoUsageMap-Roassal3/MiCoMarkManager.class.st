@@ -50,6 +50,17 @@ MiCoMarkManager >> conflictTag [
 	^ self coUsageMap legendTag conflictTag
 ]
 
+{ #category : #public }
+MiCoMarkManager >> contractLabel: aString [
+	| contractor |
+	contractor := LbCContractor new.
+	contractor  addStrategy: (LbCEllipsisStrategy new 
+		separator: '...';
+		upTo: 50;
+		yourself).
+	^ contractor reduce: aString
+]
+
 { #category : #'building - menus' }
 MiCoMarkManager >> createGlobalMenuOn: menu [
 	(menu

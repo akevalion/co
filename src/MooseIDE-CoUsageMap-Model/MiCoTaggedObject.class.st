@@ -6,7 +6,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'tag',
-		'name'
+		'name',
+		'rawObject'
 	],
 	#category : #'MooseIDE-CoUsageMap-Model'
 }
@@ -24,6 +25,18 @@ MiCoTaggedObject >> name: aString [
 { #category : #printing }
 MiCoTaggedObject >> printOn: s [
 	s nextPutAll: name
+]
+
+{ #category : #accessing }
+MiCoTaggedObject >> rawObject [
+
+	^ rawObject
+]
+
+{ #category : #accessing }
+MiCoTaggedObject >> rawObject: anObject [
+
+	rawObject := anObject
 ]
 
 { #category : #accessing }

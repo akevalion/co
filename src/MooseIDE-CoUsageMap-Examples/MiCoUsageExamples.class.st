@@ -13,7 +13,7 @@ MiCoUsageExamples >> example01Empty [
 	| v attributes methods |
 	attributes := #().
 	methods := #().
-	v := MiCoUsageMapVisualization new.
+	v := MiCoUsageMapBuilder new.
 	v attributes: attributes.
 	v methods: methods.
 	^ v
@@ -23,7 +23,7 @@ MiCoUsageExamples >> example01Empty [
 MiCoUsageExamples >> example02RandomGodClass [
 	<script: 'self new example02RandomGodClass open'>
 	| v |
-	v := MiCoUsageMapVisualization new.
+	v := MiCoUsageMapBuilder new.
 	v godClass: self randomGodClass.
 	v legendTag
 		conflictTag: 'need work' tags: { 'Frame'. 'Connection'. 'Test'. 'Base' }.
@@ -34,7 +34,7 @@ MiCoUsageExamples >> example02RandomGodClass [
 MiCoUsageExamples >> example03SystemWindow [
 	<script: 'self new example03SystemWindow open'>
 	| v |
-	v := MiCoUsageMapVisualization new.
+	v := MiCoUsageMapBuilder new.
 	v godClass: SystemWindow.
 	v legendTag
 		conflictTag: 'need work' tags: { 'Frame'. 'Connection'. 'Test'. 'Base' }.
@@ -45,7 +45,7 @@ MiCoUsageExamples >> example03SystemWindow [
 MiCoUsageExamples >> example04PNGReadWriter [
 	<script: 'self new example04PNGReadWriter open'>
 	| v |
-	v := MiCoUsageMapVisualization new.
+	v := MiCoUsageMapBuilder new.
 	v godClass: PNGReadWriter.
 	v legendTag
 		conflictTag: 'need work' tags: { 'Frame'. 'Connection'. 'Test'. 'Base' }.
@@ -56,7 +56,7 @@ MiCoUsageExamples >> example04PNGReadWriter [
 MiCoUsageExamples >> example05FileList [
 	<script: 'self new example05FileList open'>
 	| v |
-	v := MiCoUsageMapVisualization new.
+	v := MiCoUsageMapBuilder new.
 	v godClass: FileList.
 	v legendTag
 		conflictTag: 'need work' tags: { 'Frame'. 'Connection'. 'Test'. 'Base' }.
@@ -67,7 +67,7 @@ MiCoUsageExamples >> example05FileList [
 MiCoUsageExamples >> example06MCClassDefinition [
 	<script: 'self new example06MCClassDefinition open'>
 	| v |
-	v := MiCoUsageMapVisualization new.
+	v := MiCoUsageMapBuilder new.
 	v godClass: MCClassDefinition.
 	v legendTag
 		conflictTag: 'need work' tags: { 'Frame'. 'Connection'. 'Test'. 'Base' }.

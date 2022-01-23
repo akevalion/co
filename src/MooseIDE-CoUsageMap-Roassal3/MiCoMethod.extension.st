@@ -26,11 +26,11 @@ MiCoMethod >> createMenuOn: aMenuMorph markManager: aMiCoMarkManager [
 		subMenu: (self conflictTagSubMenuWith: aMiCoMarkManager).
 	
 	aMenuMorph
-		addTitle: 'Method: <', self name,'>';
+		addTitle: 'Method: <', (aMiCoMarkManager contractLabel: self name),'>';
 		add: 'Tags' 
 			subMenu: subMenu;
 		add: 'Inspect'
-			target: self
+			target: self rawObject
 			selector: #inspect
 			argument: #()
 ]
