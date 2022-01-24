@@ -23,9 +23,9 @@ MiCoTagVisualization >> boxLabelExtent [
 
 { #category : #public }
 MiCoTagVisualization >> conflicTag: aString tags: aCollection colorPalette: aNSOrdinalScale [ 
-	self conflictTag: (MiCoTag new label: aString; yourself).
+	self conflictTag: (MiCoTag new name: aString; yourself).
 	aCollection do: [:str |
-		self addTag: (MiCoTag new label: str; yourself) ].
+		self addTag: (MiCoTag new name: str; yourself) ].
 	{ conflictTag  }, self tags do: [ :tag |
 		tag color: (aNSOrdinalScale scale: tag) ]
 ]
@@ -128,14 +128,14 @@ MiCoTagVisualization >> shapeBoxDescription [
 
 { #category : #accessing }
 MiCoTagVisualization >> tagNamed: aString [ 
-	^ self tags detect: [ :tag | tag label = aString ] ifNone: [ nil ]
+	^ self tags detect: [ :tag | tag name = aString ] ifNone: [ nil ]
 ]
 
 { #category : #hooks }
 MiCoTagVisualization >> tagShapeFor: aMiCoTag [ 
 	| label box |
 	label := RSLabel new
-		text: aMiCoTag label;
+		text: aMiCoTag name;
 		color: Color black;
 		yourself.
 	box := RSBox new

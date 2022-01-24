@@ -5,8 +5,9 @@ Class {
 	#name : #MiCoTag,
 	#superclass : #Object,
 	#instVars : [
-		'label',
+		'name',
 		'color',
+		'description',
 		'references'
 	],
 	#category : #'MooseIDE-CoUsageMap-Model'
@@ -19,13 +20,22 @@ MiCoTag >> addReference: aMiCoObject [
 
 { #category : #accessing }
 MiCoTag >> color [
-
 	^ color
 ]
 
 { #category : #accessing }
 MiCoTag >> color: aColor [
 	color := aColor
+]
+
+{ #category : #accessing }
+MiCoTag >> description [
+	^ description
+]
+
+{ #category : #accessing }
+MiCoTag >> description: aString [
+	description := aString
 ]
 
 { #category : #initialization }
@@ -36,20 +46,23 @@ MiCoTag >> initialize [
 ]
 
 { #category : #accessing }
-MiCoTag >> label [
-
-	^ label
+MiCoTag >> name [
+	^ name
 ]
 
 { #category : #accessing }
-MiCoTag >> label: anObject [
-
-	label := anObject
+MiCoTag >> name: aString [
+	name := aString
 ]
 
 { #category : #public }
 MiCoTag >> numberOfReferences [
 	^ references size
+]
+
+{ #category : #accessing }
+MiCoTag >> references [
+	^ references
 ]
 
 { #category : #'add-remove' }

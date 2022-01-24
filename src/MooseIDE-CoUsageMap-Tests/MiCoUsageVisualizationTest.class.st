@@ -92,15 +92,15 @@ MiCoUsageVisualizationTest >> test04Legend [
 	self assert: tv shapes size equals: 2.
 	
 	tv conflictTag: (MiCoTag new
-		label: 'need work';
+		name: 'need work';
 		color: Color gray;
 		yourself).
 	tv addTag: (MiCoTag new
-		label: 'Frame';
+		name: 'Frame';
 		color: Color lightBlue;
 		yourself).
 	tv addTag: (MiCoTag new
-		label: 'Connection';
+		name: 'Connection';
 		color: Color green;
 		yourself).
 	v build.

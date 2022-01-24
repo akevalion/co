@@ -11,8 +11,9 @@ Class {
 MiCoTagTest >> testBasicAttribute [
 	| tag attribute1 attribute2 |
 	tag := MiCoTag new
-		label: 'Frame';
+		name: 'Frame';
 		color: Color green;
+		description: 'Basic';
 		yourself.
 		
 	attribute1 := MiCoAttribute new name: 'var1'.
@@ -29,8 +30,9 @@ MiCoTagTest >> testBasicAttribute [
 MiCoTagTest >> testBasicMethod [
 	| tag method1 method2 |
 	tag := MiCoTag new
-		label: 'Frame';
+		name: 'Frame';
 		color: Color green;
+		description: 'Simple';
 		yourself.
 		
 	method1 := MiCoMethod new name: 'method1'.
@@ -47,11 +49,11 @@ MiCoTagTest >> testBasicMethod [
 MiCoTagTest >> testSettingTags [
 	| tag1 tag2 attribute1 attribute2 |
 	tag1 := MiCoTag new
-		label: 'Frame';
+		name: 'Frame';
 		color: Color green;
 		yourself.
 	tag2 := MiCoTag new
-		label: 'Connection';
+		name: 'Connection';
 		color: Color red;
 		yourself.
 		
