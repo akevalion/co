@@ -2,13 +2,13 @@
 I have examples
 "
 Class {
-	#name : #MiCoUsageExamples,
+	#name : #MiCoUsageMapExamples,
 	#superclass : #Object,
 	#category : #'CoUsageMap-Examples'
 }
 
 { #category : #examples }
-MiCoUsageExamples >> example01Empty [
+MiCoUsageMapExamples >> example01Empty [
 	<script: 'self new example01Empty open '>
 	| v attributes methods |
 	attributes := #().
@@ -20,7 +20,7 @@ MiCoUsageExamples >> example01Empty [
 ]
 
 { #category : #examples }
-MiCoUsageExamples >> example02RandomGodClass [
+MiCoUsageMapExamples >> example02RandomGodClass [
 	<script: 'self new example02RandomGodClass open'>
 	| v |
 	v := MiCoUsageMapBuilder new.
@@ -31,7 +31,7 @@ MiCoUsageExamples >> example02RandomGodClass [
 ]
 
 { #category : #examples }
-MiCoUsageExamples >> example03SystemWindow [
+MiCoUsageMapExamples >> example03SystemWindow [
 	<script: 'self new example03SystemWindow open'>
 	| v |
 	v := MiCoUsageMapBuilder new.
@@ -42,7 +42,7 @@ MiCoUsageExamples >> example03SystemWindow [
 ]
 
 { #category : #examples }
-MiCoUsageExamples >> example04PNGReadWriter [
+MiCoUsageMapExamples >> example04PNGReadWriter [
 	<script: 'self new example04PNGReadWriter open'>
 	| v |
 	v := MiCoUsageMapBuilder new.
@@ -53,7 +53,7 @@ MiCoUsageExamples >> example04PNGReadWriter [
 ]
 
 { #category : #examples }
-MiCoUsageExamples >> example05FileList [
+MiCoUsageMapExamples >> example05FileList [
 	<script: 'self new example05FileList open'>
 	| v |
 	v := MiCoUsageMapBuilder new.
@@ -64,7 +64,7 @@ MiCoUsageExamples >> example05FileList [
 ]
 
 { #category : #examples }
-MiCoUsageExamples >> example06MCClassDefinition [
+MiCoUsageMapExamples >> example06MCClassDefinition [
 	<script: 'self new example06MCClassDefinition open'>
 	| v |
 	v := MiCoUsageMapBuilder new.
@@ -75,7 +75,7 @@ MiCoUsageExamples >> example06MCClassDefinition [
 ]
 
 { #category : #accessing }
-MiCoUsageExamples >> randomGodClass [
+MiCoUsageMapExamples >> randomGodClass [
 	| allClasses godClasses |
 	allClasses := RPackage organizer packages 
 		flatCollect: [ :pkg | pkg definedClasses ].

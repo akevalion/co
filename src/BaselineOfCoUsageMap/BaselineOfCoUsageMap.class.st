@@ -13,11 +13,11 @@ BaselineOfCoUsageMap >> baseline: spec [
 	"https://github.com/akevalion/CoUsageProto"
 	spec for: #'common' do: [ 
 		spec
-			package: #'MooseIDE-CoUsageMap-Model';
-			package: #'MooseIDE-CoUsageMap-Roassal3';
+			package: #'CoUsageMap-Model';
+			package: #'CoUsageMap-Roassal3';
 			package: #'MooseIDE-CoUsageMap-Browser';
-			package: #'MooseIDE-CoUsageMap-Examples';
-			package: #'MooseIDE-CoUsageMap-Tests'
+			package: #'CoUsageMap-Examples';
+			package: #'CoUsageMap-Tests'
 			
 		 ].
 ]
