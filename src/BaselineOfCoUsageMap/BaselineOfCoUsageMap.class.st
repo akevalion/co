@@ -15,6 +15,7 @@ BaselineOfCoUsageMap >> baseline: spec [
 		spec
 			package: #'MooseIDE-CoUsageMap-Model';
 			package: #'MooseIDE-CoUsageMap-Roassal3';
+			package: #'MooseIDE-CoUsageMap-Browser';
 			package: #'MooseIDE-CoUsageMap-Examples';
 			package: #'MooseIDE-CoUsageMap-Tests'
 			

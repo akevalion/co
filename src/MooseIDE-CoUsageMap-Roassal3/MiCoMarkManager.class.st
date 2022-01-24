@@ -6,7 +6,8 @@ Class {
 	#superclass : #RSInteraction,
 	#instVars : [
 		'coUsageMap',
-		'menuInteraction'
+		'menuInteraction',
+		'strategies'
 	],
 	#category : #'MooseIDE-CoUsageMap-Roassal3'
 }
@@ -14,24 +15,32 @@ Class {
 { #category : #public }
 MiCoMarkManager >> automaticColor [
 	self coUsageMap miMethods 
-		select: [ :met | met tag isNil ]
-		thenDo:[:met | self automaticColorForMethod: met ].
+		do:[:met | self automaticColorForMethod: met ]
 ]
 
 { #category : #public }
 MiCoMarkManager >> automaticColorForMethod: aMiCoMethod [
-	| groupsByTag conflictTag tag |
+	| groupsByTag conflictTag |
+	conflictTag := self conflictTag.
 	groupsByTag := aMiCoMethod usedAttributes 
 		groupedBy: [ :att | att tag ].
-	conflictTag := self conflictTag.
+	groupsByTag ifEmpty: [
+		 "nothing to compare" ^ self ].
+	self strategies do: [ :strat | |  |
+		strat
+			method: aMiCoMethod;
+			groupsByTag: groupsByTag.
+		strat computeTag ifNotNil: [ :tag | 
+			self setTag: tag onAttribute: aMiCoMethod.
+			^ self ].
+	].
+	(groupsByTag size = 1 and: [ groupsByTag keys anyOne isNil])
+		ifTrue: [ self setTag: nil onAttribute: aMiCoMethod. ]
+		ifFalse: [ self setTag: conflictTag onAttribute: aMiCoMethod].
 	
-	groupsByTag ifEmpty: [ "nothing to compare" ^ self ].
-	groupsByTag size = 1 ifTrue: [ 
-		tag := groupsByTag keys anyOne.
-		tag ifNotNil:[ self setTag: tag onAttribute: aMiCoMethod ].
-		^ self ].
 	
-	self setTag: conflictTag onAttribute: aMiCoMethod
+	
+	
 	
 ]
 
@@ -89,6 +98,7 @@ MiCoMarkManager >> iconFormFor: aMiCoTag [
 { #category : #initialization }
 MiCoMarkManager >> initialize [
 	super initialize.
+	strategies := (MiCoMarkStrategy subclasses collect: #new) sorted: [ :a :b | a order < b order ].
 	menuInteraction := RSMenuActivable new
 		menuDo: [ :menu :aShape | self createMenuOn: menu for: aShape ];
 		yourself.
@@ -107,6 +117,11 @@ MiCoMarkManager >> setTag: aMicoTag onAttribute: aMicoTaggedObject [
 	(self coUsageMap canvas deepShapesFromModel: aMicoTaggedObject) 
 		do: [ :shape | shape color: color ].
 	self coUsageMap canvas signalUpdate.
+]
+
+{ #category : #accessing }
+MiCoMarkManager >> strategies [
+	^ strategies
 ]
 
 { #category : #'building - menus' }
