@@ -9,7 +9,7 @@ MiCoMethod >> conflictTagSubMenuWith: aMiCoMarkManager [
 	self tag = conflictTag
 		ifTrue: [ ^ subMenu ].
 	(subMenu 
-			add: 'Mark as conflict: ', conflictTag label
+			add: 'Mark as conflict: ', conflictTag name
 				target: aMiCoMarkManager
 				selector: #setTag:onAttribute:
 				argumentList: { conflictTag. self })

@@ -24,9 +24,8 @@ MiCoUsageMapVisualization >> run [
 	super run.
 	model := self owner classModel.
 	tags := model mooseModel allTags sorted: [:a :b| a name < b name].
-	
 	conflictTag := model mooseModel tagNamed: 'Need work'.
-	
+
 	v := MiCoUsageMapMooseBuilder new.
 	v container: self canvas.
 	v attributes: model attributes.
@@ -44,4 +43,5 @@ MiCoUsageMapVisualization >> run [
 				color: tag color;
 				description: tag description) ].
 	v build.
+	
 ]

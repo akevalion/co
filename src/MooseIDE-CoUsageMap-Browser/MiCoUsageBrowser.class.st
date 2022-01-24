@@ -40,14 +40,13 @@ MiCoUsageBrowser >> classModel [
 
 { #category : #accessing }
 MiCoUsageBrowser >> classModel: anObject [
-
 	classModel := anObject
 ]
 
 { #category : #actions }
 MiCoUsageBrowser >> followEntity: anEntity [
 	classModel := anEntity.
-	coUsageMap run.
+	coUsageMap run
 ]
 
 { #category : #initialization }

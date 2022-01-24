@@ -128,7 +128,7 @@ MiCoMarkManager >> strategies [
 MiCoMarkManager >> subMenuTagsFor: aMiCoAttribute subMenu: menu [
 	self coUsageMap legendTag tags do: [ :aMiCoTag |
 		(menu 
-			add: aMiCoTag label
+			add: aMiCoTag name
 				target: self
 				selector: #setTag:onAttribute:
 				argumentList: { aMiCoTag. aMiCoAttribute })
