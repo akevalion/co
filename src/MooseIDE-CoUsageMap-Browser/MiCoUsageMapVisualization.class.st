@@ -7,6 +7,13 @@ Class {
 	#category : #'MooseIDE-CoUsageMap-Browser'
 }
 
+{ #category : #'as yet unclassified' }
+MiCoUsageMapVisualization >> consume: aTag [
+	
+	self owner application itemsFor: FamixTag.
+	self owner classModel mooseModel allTags
+]
+
 { #category : #highlighting }
 MiCoUsageMapVisualization >> highlightShapes [
 	^ #()
@@ -14,6 +21,7 @@ MiCoUsageMapVisualization >> highlightShapes [
 
 { #category : #initialization }
 MiCoUsageMapVisualization >> initialize [
+
 	super initialize.
 	self script: [ :canvas | canvas ]
 ]
@@ -23,6 +31,7 @@ MiCoUsageMapVisualization >> run [
 	| model v tags conflictTag |
 	super run.
 	model := self owner classModel.
+	self owner application itemsFor: FamixTag.
 	tags := model mooseModel allTags sorted: [:a :b| a name < b name].
 	conflictTag := model mooseModel tagNamed: 'Need work'.
 

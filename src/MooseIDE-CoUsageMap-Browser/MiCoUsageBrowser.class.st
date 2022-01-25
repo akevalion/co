@@ -28,6 +28,13 @@ MiCoUsageBrowser class >> windowSize [
 ]
 
 { #category : #testing }
+MiCoUsageBrowser >> browserClosed [
+
+	super browserClosed.
+	application unregisterConsumer: coUsageMap
+]
+
+{ #category : #testing }
 MiCoUsageBrowser >> canFollowEntity: anEntity [
 	^ anEntity isClass
 ]
@@ -58,7 +65,8 @@ MiCoUsageBrowser >> initializeLayout [
 
 { #category : #initialization }
 MiCoUsageBrowser >> initializePresenters [
+
 	coUsageMap := self instantiate: MiCoUsageMapVisualization.
-	self initializeLayout.
-	
+	application registerConsumer: coUsageMap for: FamixTag.
+	self initializeLayout
 ]
