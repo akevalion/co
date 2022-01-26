@@ -1,5 +1,5 @@
 "
-TODO
+This browser is to see dependencies between methods and attributes and mark them with tags
 "
 Class {
 	#name : #MiCoUsageBrowser,
@@ -10,6 +10,19 @@ Class {
 	],
 	#category : #'MooseIDE-CoUsageMap-Browser'
 }
+
+{ #category : #'world menu' }
+MiCoUsageBrowser class >> menuCommandOn: aBuilder [
+	<worldMenu>
+	<miBrowsers>
+	^(aBuilder item: #FilesBrowser)
+		parent: self midasBrowserMenuLabel;
+		label: self title;
+		help: self helpMessage;
+		order: 5;
+		action: [ self open ] ;
+		yourself
+]
 
 { #category : #'instance creation' }
 MiCoUsageBrowser class >> open [

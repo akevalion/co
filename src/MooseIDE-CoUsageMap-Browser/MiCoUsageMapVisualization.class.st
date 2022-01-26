@@ -31,9 +31,8 @@ MiCoUsageMapVisualization >> run [
 	| model v tags conflictTag |
 	super run.
 	model := self owner classModel.
-	self owner application itemsFor: FamixTag.
-	tags := model mooseModel allTags sorted: [:a :b| a name < b name].
 	conflictTag := model mooseModel tagNamed: 'Need work'.
+	tags := model mooseModel allTags sorted: [:a :b| a name < b name].
 
 	v := MiCoUsageMapMooseBuilder new.
 	v container: self canvas.
