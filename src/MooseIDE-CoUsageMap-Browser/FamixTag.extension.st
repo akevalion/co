@@ -4,7 +4,9 @@ Extension { #name : #FamixTag }
 FamixTag >> addReference: aMiCoTaggedObject [
 
 	| tagAssociation |
-	tagAssociation := self tagEntity: aMiCoTaggedObject rawObject.
+	self tagEntity: aMiCoTaggedObject rawObject.
+	tagAssociation := (aMiCoTaggedObject rawObject allTagAssociations 
+		                   select: [ :asso | asso tag = self ]) first.
 	aMiCoTaggedObject application ifNotNil: [ :app | 
 		app consumeItem: tagAssociation ]
 ]
