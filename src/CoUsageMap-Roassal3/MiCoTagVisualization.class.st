@@ -80,6 +80,22 @@ MiCoTagVisualization >> moveLegend: legendShape toCornerIn: aCanvas [
 
 ]
 
+{ #category : #public }
+MiCoTagVisualization >> removeOldLegend [
+	| canvas legendShape |
+	canvas := self canvas.
+	legendShape := canvas fixedShapes 
+		detect: [ :shape | shape class = RSComposite ] 
+		ifNone: [ nil ].
+	legendShape ifNil: [ ^ self ].
+	conflictTag := nil.
+	tags := OrderedCollection new.
+	canvas removeInteractionIfPresent: self class.
+	legendShape remove.
+	
+
+]
+
 { #category : #hooks }
 MiCoTagVisualization >> renderIn: aCanvas [
 	| tagShapes |

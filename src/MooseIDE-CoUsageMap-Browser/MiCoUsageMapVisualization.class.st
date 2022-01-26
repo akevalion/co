@@ -4,14 +4,18 @@ TODO
 Class {
 	#name : #MiCoUsageMapVisualization,
 	#superclass : #MiAbstractVisualization,
+	#instVars : [
+		'legendTag'
+	],
 	#category : #'MooseIDE-CoUsageMap-Browser'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #brokerage }
 MiCoUsageMapVisualization >> consume: aTag [
+	legendTag removeOldLegend.
+	legendTag tagsFromMooseModel: self owner classModel mooseModel.
+	legendTag build.
 	
-	self owner application itemsFor: FamixTag.
-	self owner classModel mooseModel allTags
 ]
 
 { #category : #highlighting }
@@ -28,28 +32,15 @@ MiCoUsageMapVisualization >> initialize [
 
 { #category : #running }
 MiCoUsageMapVisualization >> run [
-	| model v tags conflictTag |
+	| model v |
 	super run.
 	model := self owner classModel.
-	conflictTag := model mooseModel tagNamed: 'Need work'.
-	tags := model mooseModel allTags sorted: [:a :b| a name < b name].
-
 	v := MiCoUsageMapMooseBuilder new.
 	v container: self canvas.
 	v attributes: model attributes.
 	v methods: model methods.
-	v legendTag
-		conflictTag: (MiCoTag new
-			name: conflictTag name;
-			color: conflictTag color;
-			description: conflictTag description).
-	tags 
-		reject: [ :tag | tag = conflictTag ]
-		thenDo: [ :tag |
-			v legendTag addTag: (MiCoTag new
-				name: tag name;
-				color: tag color;
-				description: tag description) ].
+	legendTag := v legendTag.
+	self consume: nil.
 	v build.
 	
 ]
