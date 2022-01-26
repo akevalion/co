@@ -7,70 +7,66 @@ Class {
 { #category : #tests }
 MiCoTagTest >> testBasicAttribute [
 
-	| tmp1 tmp2 tmp3 tmp5 |
-	tmp5 := MiCoTag new.
-	tmp5
+	| attribute1 attribute2 tag |
+	tag := MiCoTag new.
+	tag
 		name: 'Frame';
 		color: Color green;
 		description: 'Basic'.
-	tmp1 := tmp5 yourself.
-	tmp2 := MiCoAttribute new name: 'var1'.
-	tmp3 := MiCoAttribute new name: 'var2'.
-	tmp2 tag: tmp1.
-	tmp3 tag: tmp1.
+	attribute1 := MiCoAttribute new name: 'var1'.
+	attribute2 := MiCoAttribute new name: 'var2'.
+	attribute1 tag: tag.
+	attribute2 tag: tag.
 	self
-		assert: tmp2 tag equals: tmp1;
-		assert: tmp1 references asArray equals: { 
-				tmp2.
-				tmp3 };
-		assert: tmp1 description equals: 'Basic'
+		assert: attribute1 tag equals: tag;
+		assert: tag references asArray equals: { 
+				attribute1.
+				attribute2 };
+		assert: tag description equals: 'Basic'
 ]
 
 { #category : #tests }
 MiCoTagTest >> testBasicMethod [
 
-	| tmp1 tmp2 tmp3 tmp5 |
-	tmp5 := MiCoTag new.
-	tmp5
+	| tag method1 method2 |
+	tag := MiCoTag new
 		name: 'Frame';
 		color: Color green;
-		description: 'Simple'.
-	tmp1 := tmp5 yourself.
-	tmp2 := MiCoMethod new name: 'method1'.
-	tmp3 := MiCoMethod new name: 'method2'.
-	tmp2 tag: tmp1.
-	tmp3 tag: tmp1.
+		description: 'Simple';
+		yourself.
+	method1 := MiCoMethod new name: 'method1'.
+	method2 := MiCoMethod new name: 'method2'.
+	method1 tag: tag.
+	method2 tag: tag.
 	self
-		assert: tmp1 numberOfReferences equals: 2;
-		assert: tmp2 tag equals: tmp1
+		assert: tag numberOfReferences equals: 2;
+		assert: method1 tag equals: tag
 ]
 
 { #category : #tests }
 MiCoTagTest >> testSettingTags [
 
-	| tmp1 tmp2 tmp3 tmp4 tmp6 tmp8 |
-	tmp6 := MiCoTag new.
-	tmp6
+	| tag1 tag2 attribute1 attribute2 |
+	tag1 := MiCoTag new
 		name: 'Frame';
-		color: Color green.
-	tmp1 := tmp6 yourself.
-	tmp8 := MiCoTag new.
-	tmp8
+		color: Color green;
+		yourself.
+	tag2 := MiCoTag new
 		name: 'Connection';
-		color: Color red.
-	tmp2 := tmp8 yourself.
-	tmp3 := MiCoAttribute new name: 'var1'.
-	tmp4 := MiCoAttribute new name: 'var2'.
-	tmp3 tag: tmp1.
-	tmp4 tag: tmp1.
+		color: Color red;
+		yourself.
+	attribute1 := MiCoAttribute new name: 'var1'.
+	attribute2 := MiCoAttribute new name: 'var2'.
+	attribute1 tag: tag1.
+	attribute2 tag: tag1.
 	self
-		assert: tmp1 numberOfReferences equals: 2;
-		assert: tmp3 tag equals: tmp1;
-		assert: tmp2 numberOfReferences equals: 0.
-	tmp3 tag: tmp2.
+		assert: tag1 numberOfReferences equals: 2;
+		assert: attribute1 tag equals: tag1;
+		assert: tag2 numberOfReferences equals: 0.
+	attribute1 tag: tag2.
 	self
-		assert: tmp1 numberOfReferences equals: 1;
-		assert: tmp2 numberOfReferences equals: 1.
-	tmp4 tag: nil.
-	self assert: tmp1 numberOfReferences equals: 0
+		assert: tag1 numberOfReferences equals: 1;
+		assert: tag2 numberOfReferences equals: 1.
+	attribute2 tag: nil.
+	self assert: tag1 numberOfReferences equals: 0
 ]

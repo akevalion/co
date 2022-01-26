@@ -7,120 +7,120 @@ Class {
 { #category : #tests }
 MiCoMarkManagerTest >> test01ColorASingleMethod [
 
-	| tmp1 tmp2 tmp3 tmp4 tmp5 tmp6 tmp7 |
-	tmp1 := MiCoUsageMapBuilder new.
-	tmp1 godClass: MiCoTestClass.
-	tmp1 legendTag conflictTag: 'conflic' tags: { 'base'. 'simple' }.
-	tmp1 build.
-	tmp2 := tmp1 attributeNamed: #var6.
-	tmp3 := tmp1 tagNamed: 'base'.
-	tmp5 := tmp1 markManager tagColorFrom: nil.
-	tmp4 := tmp1 canvas deepShapesFromModel: tmp2.
+	| v attribute tag shapes tagColor method4 method5 |
+	v := MiCoUsageMapBuilder new.
+	v godClass: MiCoTestClass.
+	v legendTag conflictTag: 'conflic' tags: { 'base'. 'simple' }.
+	v build.
+	attribute := v attributeNamed: #var6.
+	tag := v tagNamed: 'base'.
+	tagColor := v markManager tagColorFrom: nil.
+	shapes := v canvas deepShapesFromModel: attribute.
 	self
-		assert: tmp4 size equals: 2;
-		assert: (tmp4 allSatisfy: [ :arg1 | arg1 color = tmp5 ]).
-	tmp1 markManager setTag: tmp3 onAttribute: tmp2.
-	self assert: (tmp4 allSatisfy: [ :arg2 | arg2 color = tmp3 color ]).
-	tmp1 markManager automaticColor.
-	tmp6 := tmp1 methodNamed: #method4.
-	tmp7 := tmp1 methodNamed: #method4.
+		assert: shapes size equals: 2;
+		assert: (shapes allSatisfy: [ :arg1 | arg1 color = tagColor ]).
+	v markManager setTag: tag onAttribute: attribute.
+	self assert: (shapes allSatisfy: [ :arg2 | arg2 color = tag color ]).
+	v markManager automaticColor.
+	method4 := v methodNamed: #method4.
+	method5 := v methodNamed: #method5.
 	self
-		assert: (tmp1 canvas shapeFromModel: tmp6) children second color
-		equals: tmp3 color;
-		assert: (tmp1 canvas shapeFromModel: tmp7) children second color
-		equals: tmp3 color
+		assert: (v canvas shapeFromModel: method4) children second color
+		equals: tag color;
+		assert: (v canvas shapeFromModel: method5) children second color
+		equals: tag color
 ]
 
 { #category : #tests }
 MiCoMarkManagerTest >> test02OpenMenu [
 
-	| tmp1 tmp2 tmp3 |
-	tmp1 := MiCoUsageMapBuilder new.
-	tmp1 godClass: MiCoTestClass.
-	tmp1 legendTag conflictTag: 'conflic' tags: { 'base'. 'simple' }.
-	tmp1 build.
-	tmp2 := tmp1 attributeNamed: #var2.
-	tmp3 := tmp1 methodNamed: #method1.
-	tmp2 createMenuOn: MenuMorph new markManager: tmp1 markManager.
-	tmp3 createMenuOn: MenuMorph new markManager: tmp1 markManager.
-	tmp1 markManager
+	| v attribute method |
+	v := MiCoUsageMapBuilder new.
+	v godClass: MiCoTestClass.
+	v legendTag conflictTag: 'conflic' tags: { 'base'. 'simple' }.
+	v build.
+	attribute := v attributeNamed: #var2.
+	method := v methodNamed: #method1.
+	attribute createMenuOn: MenuMorph new markManager: v markManager.
+	method createMenuOn: MenuMorph new markManager: v markManager.
+	v markManager
 		createGlobalMenuOn: MenuMorph new;
-		createMenuOn: MenuMorph new for: tmp1 canvas
+		createMenuOn: MenuMorph new for: v canvas
 ]
 
 { #category : #tests }
 MiCoMarkManagerTest >> test03MarkingAttributes [
 
-	| tmp1 tmp2 tmp3 tmp4 |
-	tmp1 := MiCoUsageMapBuilder new.
-	tmp2 := MiCoTestClass.
-	tmp1 godClass: tmp2.
-	tmp1 legendTag
+	| v class attribute tag |
+	v := MiCoUsageMapBuilder new.
+	class := MiCoTestClass.
+	v godClass: class.
+	v legendTag
 		conflictTag: 'need work'
 		tags: { 'Frame'. 'Connection' }.
-	tmp1 build.
-	tmp4 := tmp1 tagNamed: 'Frame'.
-	tmp3 := tmp1 attributeNamed: 'var2'.
-	tmp1 markManager setTag: tmp4 onAttribute: tmp3.
+	v build.
+	tag := v tagNamed: 'Frame'.
+	attribute := v attributeNamed: 'var2'.
+	v markManager setTag: tag onAttribute: attribute.
 	self assert:
-		((tmp1 canvas deepShapesFromModel: tmp3) allSatisfy: [ :arg1 | 
-			 arg1 color = tmp4 color ])
+		((v canvas deepShapesFromModel: attribute) allSatisfy: [ :shape | 
+			 shape color = tag color ])
 ]
 
 { #category : #tests }
 MiCoMarkManagerTest >> test04ClickLastTag [
 
-	| tmp1 tmp2 tmp3 tmp4 tmp5 |
-	tmp1 := MiCoUsageMapBuilder new.
-	tmp2 := MiCoTestClass.
-	tmp1 godClass: tmp2.
-	tmp1 legendTag
+	| v class attribute method tag |
+	v := MiCoUsageMapBuilder new.
+	class := MiCoTestClass.
+	v godClass: class.
+	v legendTag
 		conflictTag: 'need work'
 		tags: { 'Frame'. 'Connection' }.
-	tmp1 build.
-	self assert: tmp1 markManager lastTagSelected isNil.
-	tmp3 := tmp1 attributeNamed: #var2.
-	tmp4 := tmp1 methodNamed: #method1.
-	tmp5 := tmp1 tagNamed: 'Frame'.
-	tmp1 markManager setTag: tmp5 onAttribute: tmp3.
-	self assert: tmp1 markManager lastTagSelected notNil.
-	tmp1 markManager
+	v build.
+	self assert: v markManager lastTagSelected isNil.
+	attribute := v attributeNamed: #var2.
+	method := v methodNamed: #method1.
+	tag := v tagNamed: 'Frame'.
+	v markManager setTag: tag onAttribute: attribute.
+	self assert: v markManager lastTagSelected notNil.
+	v markManager
 		lastTagSelected: nil;
-		setTag: tmp5 onAttribute: tmp4.
-	self assert: tmp1 markManager lastTagSelected notNil
+		setTag: tag onAttribute: method.
+	self assert: v markManager lastTagSelected notNil
 ]
 
 { #category : #tests }
 MiCoMarkManagerTest >> test05ClickLastTag [
 
-	| tmp1 tmp2 tmp3 tmp4 tmp5 tmp6 tmp7 tmp8 tmp10 |
-	tmp1 := MiCoUsageMapBuilder new.
-	tmp2 := MiCoTestClass.
-	tmp1 godClass: tmp2.
-	tmp1 legendTag
+	| v class attribute1 attribute2 method tag shapes tagColor event |
+	v := MiCoUsageMapBuilder new.
+	class := MiCoTestClass.
+	v godClass: class.
+	v legendTag
 		conflictTag: 'need work'
 		tags: { 'Frame'. 'Connection' }.
-	tmp1 build.
-	tmp3 := tmp1 attributeNamed: #var1.
-	tmp4 := tmp1 attributeNamed: #var2.
-	tmp5 := tmp1 methodNamed: #method1.
-	tmp6 := tmp1 tagNamed: 'Frame'.
-	tmp8 := tmp1 markManager tagColorFrom: nil.
-	tmp7 := tmp1 canvas deepShapesFromModel: tmp3.
-	tmp1 markManager clickOn: (RSMouseClick new shape: tmp7 first).
+	v build.
+	attribute1 := v attributeNamed: #var1.
+	attribute2 := v attributeNamed: #var2.
+	method := v methodNamed: #method1.
+	tag := v tagNamed: 'Frame'.
+	tagColor := v markManager tagColorFrom: nil.
+	shapes := v canvas deepShapesFromModel: attribute1.
+	v markManager clickOn: (RSMouseClick new shape: shapes first).
 	self
-		assert: tmp3 tag isNil;
-		assert: (tmp7 allSatisfy: [ :arg1 | arg1 color = tmp8 ]).
-	tmp1 markManager
-		lastTagSelected: tmp6;
-		clickOn: (RSMouseClick new shape: tmp7 first).
+		assert: attribute1 tag isNil;
+		assert: (shapes allSatisfy: [ :shape | shape color = tagColor ]).
+	v markManager
+		lastTagSelected: tag;
+		clickOn: (RSMouseClick new shape: shapes first).
 	self
-		assert: tmp3 tag isNil;
-		assert: (tmp7 allSatisfy: [ :arg2 | arg2 color = tmp8 ]).
-	tmp10 := RSMouseClick new.
-	tmp10 shape: tmp7 first.
-	tmp1 markManager clickOn: (tmp10 commandKeyPressed: true).
+		assert: attribute1 tag isNil;
+		assert: (shapes allSatisfy: [ :shape | shape color = tagColor ]).
+	event := RSMouseClick new.
+	event shape: shapes first.
+	v markManager clickOn: (event commandKeyPressed: true).
 	self
-		assert: tmp3 tag equals: tmp6;
-		assert: (tmp7 allSatisfy: [ :arg3 | arg3 color = tmp6 color ])
+		assert: attribute1 tag equals: tag;
+		assert: (shapes allSatisfy: [ :shape | shape color = tag color ])
 ]

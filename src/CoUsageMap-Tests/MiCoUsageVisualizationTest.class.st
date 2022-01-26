@@ -7,124 +7,126 @@ Class {
 { #category : #tests }
 MiCoUsageVisualizationTest >> test00Basic [
 
-	| tmp1 tmp2 tmp3 |
-	tmp1 := MiCoUsageMapBuilder new.
-	self assert: tmp1 canvas nodes size equals: 0.
-	tmp2 := ZnUrl.
-	tmp1 godClass: tmp2.
-	tmp3 := tmp1 open.
-	tmp3 delete
+	| v class window |
+	v := MiCoUsageMapBuilder new.
+	self assert: v canvas nodes size equals: 0.
+	class := ZnUrl.
+	v godClass: class.
+	window := v open.
+	window delete
 ]
 
 { #category : #tests }
 MiCoUsageVisualizationTest >> test01Basic [
 
-	| tmp1 tmp2 |
-	tmp1 := MiCoUsageMapBuilder new.
-	tmp1 build.
-	self assert: tmp1 canvas nodes size equals: 0.
-	tmp2 := ZnUrl.
-	tmp1
-		godClass: tmp2;
+	| v class |
+	v := MiCoUsageMapBuilder new.
+	v build.
+	self assert: v canvas nodes size equals: 0.
+	class := ZnUrl.
+	v
+		godClass: class;
 		build.
 	self
-		assert: tmp1 godClass equals: tmp2;
-		assert: tmp1 miMethods size equals: tmp2 methods size;
-		assert: tmp1 miAttributes size equals: tmp2 instVarNames size;
-		assert: tmp1 canvas nodes size equals: tmp2 methods size
+		assert: v godClass equals: class;
+		assert: v miMethods size equals: class methods size;
+		assert: v miAttributes size equals: class instVarNames size;
+		assert: v canvas nodes size equals: class methods size
 ]
 
 { #category : #tests }
 MiCoUsageVisualizationTest >> test02MethodsAttributes [
 
-	| tmp1 tmp2 tmp3 tmp4 |
-	tmp1 := MiCoUsageMapBuilder new.
-	tmp2 := MiCoTestClass.
-	tmp1
-		godClass: tmp2;
+	| v class method attribute |
+	v := MiCoUsageMapBuilder new.
+	class := MiCoTestClass.
+	v
+		godClass: class;
 		build.
 	self
-		assert: tmp1 miMethods size equals: tmp2 methods size;
-		assert: tmp1 miAttributes size equals: tmp2 instVarNames size.
-	tmp3 := tmp1 methodNamed: #method1.
+		assert: v miMethods size equals: class methods size;
+		assert: v miAttributes size equals: class instVarNames size.
+	method := v methodNamed: #method1.
 	self
-		assert: tmp3 class equals: MiCoMethod;
-		assert: tmp3 usedAttributes size equals: 2;
-		assert: tmp3 usedAttributes first class equals: MiCoAttribute.
-	tmp3 := tmp1 methodNamed: #method2.
-	self assert: tmp3 usedAttributes size equals: 0.
-	tmp3 := tmp1 methodNamed: #method3.
-	self assert: tmp3 usedAttributes size equals: 3.
-	tmp4 := tmp1 attributeNamed: #var2.
-	self assert: tmp4 usedInMethods size equals: 2.
-	tmp4 := tmp1 attributeNamed: #var4.
-	self assert: tmp4 usedInMethods size equals: 1.
-	tmp4 := tmp1 attributeNamed: #var5.
-	self assert: tmp4 usedInMethods size equals: 0
+		assert: method class equals: MiCoMethod;
+		assert: method usedAttributes size equals: 2;
+		assert: method usedAttributes first class equals: MiCoAttribute.
+	method := v methodNamed: #method2.
+	self assert: method usedAttributes size equals: 0.
+	method := v methodNamed: #method3.
+	self assert: method usedAttributes size equals: 3.
+	attribute := v attributeNamed: #var2.
+	self assert: attribute usedInMethods size equals: 2.
+	attribute := v attributeNamed: #var4.
+	self assert: attribute usedInMethods size equals: 1.
+	attribute := v attributeNamed: #var5.
+	self assert: attribute usedInMethods size equals: 0
 ]
 
 { #category : #tests }
 MiCoUsageVisualizationTest >> test03AttributeWidth [
 
-	| tmp1 tmp2 tmp3 tmp4 tmp5 |
-	tmp1 := MiCoUsageMapBuilder new.
-	tmp2 := MiCoTestClass.
-	tmp1
-		godClass: tmp2;
+	| v class method attribute shapes |
+	v := MiCoUsageMapBuilder new.
+	class := MiCoTestClass.
+	v
+		godClass: class;
 		build.
-	tmp4 := tmp1 attributeNamed: #var1.
-	tmp3 := tmp1 methodNamed: #method1.
-	tmp5 := tmp1 canvas deepShapesFromModel: tmp4.
+	attribute := v attributeNamed: #var1.
+	method := v methodNamed: #method1.
+	shapes := v canvas deepShapesFromModel: attribute.
 	self
-		assert: tmp5 size equals: tmp4 usedInMethods size;
-		assert: (tmp4 numberOfUsesOn: tmp3) equals: 3.
-	tmp4 := tmp1 attributeNamed: #var4.
-	tmp3 := tmp1 methodNamed: #method3.
-	self assert: (tmp4 numberOfUsesOn: tmp3) equals: 1
+		assert: shapes size equals: attribute usedInMethods size;
+		assert: (attribute numberOfUsesOn: method) equals: 3.
+	attribute := v attributeNamed: #var4.
+	method := v methodNamed: #method3.
+	self assert: (attribute numberOfUsesOn: method) equals: 1
 ]
 
 { #category : #tests }
 MiCoUsageVisualizationTest >> test04Highlight [
 
-	| tmp1 tmp2 tmp3 tmp4 tmp5 tmp7 tmp9 |
-	tmp1 := MiCoUsageMapBuilder new.
-	tmp2 := MiCoTestClass.
-	tmp1 godClass: tmp2.
-	tmp1 legendTag
+	| v class attribute shapes border event |
+	v := MiCoUsageMapBuilder new.
+	class := MiCoTestClass.
+	v godClass: class.
+	v legendTag
 		conflictTag: 'need work'
 		tags: { 'Frame'. 'Connection' }.
-	tmp1 build.
-	tmp3 := tmp1 attributeNamed: #var2.
-	tmp5 := tmp1 selectedBoxBorder.
-	tmp4 := tmp1 canvas deepShapesFromModel: tmp3.
-	tmp7 := RSMouseEnter new.
-	tmp7 shape: tmp4 first.
-	tmp1 highlight: tmp7 yourself.
-	self assert: (tmp4 allSatisfy: [ :arg1 | 
-			 arg1 border color = tmp5 color and: [ 
-				 arg1 border width = tmp5 width ] ]).
-	tmp9 := RSMouseLeave new.
-	tmp9 shape: tmp4 first.
-	tmp1 unhighlight: tmp9 yourself.
-	self deny: (tmp4 allSatisfy: [ :arg2 | 
-			 arg2 border color = tmp5 color and: [ 
-				 arg2 border width = tmp5 width ] ])
+	v build.
+	attribute := v attributeNamed: #var2.
+	border := v selectedBoxBorder.
+	shapes := v canvas deepShapesFromModel: attribute.
+	event := RSMouseEnter new
+		shape: shapes first;
+		yourself.
+	v highlight: event.
+	self assert: (shapes allSatisfy: [ :shape | 
+			 shape border color = border color and: [ 
+				 shape border width = border width ] ]).
+	event := RSMouseLeave new
+		shape: shapes first;
+		yourself.
+	v unhighlight: event.
+	self deny: (shapes allSatisfy: [ :shape | 
+			 shape border color = border color and: [ 
+				 shape border width = border width ] ])
 ]
 
 { #category : #tests }
 MiCoUsageVisualizationTest >> test05MethodAttributePopup [
 
-	| tmp1 tmp2 tmp3 tmp4 |
-	tmp1 := MiCoUsageMapBuilder new.
-	tmp2 := MiCoTestClass.
-	tmp1 godClass: tmp2.
-	tmp1 legendTag
+	| v class attribute method |
+	v := MiCoUsageMapBuilder new.
+	class := MiCoTestClass.
+	v godClass: class.
+	v legendTag
 		conflictTag: 'need work'
 		tags: { 'Frame'. 'Connection' }.
-	tmp1 build.
-	tmp3 := tmp1 attributeNamed: #var2.
-	tmp4 := tmp1 methodNamed: #method1.
-	tmp1
-		createAttributeTextMorphFor: tmp3 method: tmp4;
-		createMethodTextMorphFor: tmp4
+	v build.
+	attribute := v attributeNamed: #var2.
+	method := v methodNamed: #method1.
+	v
+		createAttributeTextMorphFor: attribute method: method;
+		createMethodTextMorphFor: method
 ]

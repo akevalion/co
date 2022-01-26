@@ -7,62 +7,62 @@ Class {
 { #category : #tests }
 MiCoAttributeTest >> test01Method [
 
-	| tmp1 |
-	tmp1 := MiCoMethod new.
-	tmp1
+	| method |
+	method := MiCoMethod new.
+	method
 		name: #method1;
 		usedAttributes: #(  ).
-	self assert: tmp1 asString equals: #method1
+	self assert: method asString equals: #method1
 ]
 
 { #category : #tests }
 MiCoAttributeTest >> test02Attribute [
 
-	| tmp1 |
-	tmp1 := MiCoAttribute new.
-	tmp1
+	| attribute |
+	attribute := MiCoAttribute new.
+	attribute
 		name: #var1;
 		usedInMethods: #(  ).
-	self assert: tmp1 asString equals: #var1
+	self assert: attribute asString equals: #var1
 ]
 
 { #category : #tests }
 MiCoAttributeTest >> test03PopupMessage [
 
-	| tmp1 tmp2 |
-	tmp1 := MiCoAttribute new.
-	tmp1
+	| attribute method |
+	attribute := MiCoAttribute new.
+	attribute
 		name: #var1;
-		method: (tmp2 := MiCoMethod new name: #method1) counter: 3;
+		method: (method := MiCoMethod new name: #method1) counter: 3;
 		method: (MiCoMethod new name: #method2) counter: 6;
 		method: (MiCoMethod new name: #method3) counter: 1;
 		method: (MiCoMethod new name: #method8) counter: 2.
 	self
-		assert: (tmp1 asStringForMethod: tmp2)
+		assert: (attribute asStringForMethod: method)
 		equals: ('Accesses for var1:
 
 3 access from this method(method1)
 9 access from 3 local methods'
 				 copyReplaceAll: String cr
 				 with: String crlf).
-	tmp1 := MiCoAttribute new.
-	tmp1
+	attribute := MiCoAttribute new.
+	attribute
 		name: #var2;
-		method: (tmp2 := MiCoMethod new name: #method5) counter: 4.
+		method: (method := MiCoMethod new name: #method5) counter: 4.
 	self
-		assert: (tmp1 asStringForMethod: tmp2)
+		assert: (attribute asStringForMethod: method)
 		equals: ('Accesses for var2:
 
 4 access from this method(method5)'
 				 copyReplaceAll: String cr
 				 with: String crlf).
-	tmp1 := MiCoAttribute new.
-	tmp1
+	attribute := MiCoAttribute new.
+	attribute
 		name: #var2;
-		method: (tmp2 := MiCoMethod new name: #method5) counter: 4;
+		method: (method := MiCoMethod new name: #method5) counter: 4;
 		method: (MiCoMethod new name: #method6) counter: 9.
 	self
-		assert: (tmp1 asStringForMethod: tmp2)
+		assert: (attribute asStringForMethod: method)
 		equals: ('Accesses for var2:
 
 4 access from this method(method5)
