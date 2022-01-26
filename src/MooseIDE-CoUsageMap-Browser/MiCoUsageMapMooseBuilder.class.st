@@ -4,8 +4,23 @@ TODO
 Class {
 	#name : #MiCoUsageMapMooseBuilder,
 	#superclass : #MiCoUsageMapBuilder,
+	#instVars : [
+		'application'
+	],
 	#category : #'MooseIDE-CoUsageMap-Browser'
 }
+
+{ #category : #accessing }
+MiCoUsageMapMooseBuilder >> application [
+
+	^ application
+]
+
+{ #category : #accessing }
+MiCoUsageMapMooseBuilder >> application: anObject [
+
+	application := anObject
+]
 
 { #category : #default }
 MiCoUsageMapMooseBuilder >> defaultTester [
@@ -18,6 +33,7 @@ MiCoUsageMapMooseBuilder >> initializeAttributes [
 		MiCoAttribute new
 			name: att name;
 			rawObject: att;
+			application: self application;
 			yourself ] as: OrderedCollection
 ]
 
@@ -27,5 +43,6 @@ MiCoUsageMapMooseBuilder >> initializeMethods [
 		MiCoMethod new
 			name: met name;
 			rawObject: met;
+			application: self application;
 			yourself ] as: OrderedCollection.
 ]

@@ -12,10 +12,10 @@ Class {
 
 { #category : #brokerage }
 MiCoUsageMapVisualization >> consume: aTag [
+
 	legendTag removeOldLegend.
 	legendTag tagsFromMooseModel: self owner classModel mooseModel.
-	legendTag build.
-	
+	legendTag build
 ]
 
 { #category : #highlighting }
@@ -30,6 +30,14 @@ MiCoUsageMapVisualization >> initialize [
 	self script: [ :canvas | canvas ]
 ]
 
+{ #category : #brokerage }
+MiCoUsageMapVisualization >> remove: aTag [
+
+	legendTag removeOldLegend.
+	legendTag tagsFromMooseModel: self owner classModel mooseModel.
+	legendTag build
+]
+
 { #category : #running }
 MiCoUsageMapVisualization >> run [
 	| model v |
@@ -39,6 +47,7 @@ MiCoUsageMapVisualization >> run [
 	v container: self canvas.
 	v attributes: model attributes.
 	v methods: model methods.
+	v application: self owner application.
 	legendTag := v legendTag.
 	self consume: nil.
 	v build.

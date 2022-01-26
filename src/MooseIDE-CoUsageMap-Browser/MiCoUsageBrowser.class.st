@@ -44,7 +44,8 @@ MiCoUsageBrowser class >> windowSize [
 MiCoUsageBrowser >> browserClosed [
 
 	super browserClosed.
-	application unregisterConsumer: coUsageMap
+	application unregisterConsumer: coUsageMap.
+	application unregisterProducer: coUsageMap
 ]
 
 { #category : #testing }
@@ -81,5 +82,12 @@ MiCoUsageBrowser >> initializePresenters [
 
 	coUsageMap := self instantiate: MiCoUsageMapVisualization.
 	application registerConsumer: coUsageMap for: FamixTag.
+	application registerProducer: coUsageMap for: FamixTagAssociation.
 	self initializeLayout
+]
+
+{ #category : #actions }
+MiCoUsageBrowser >> miSelectedItem [
+
+	^ classModel
 ]

@@ -7,10 +7,23 @@ Class {
 	#instVars : [
 		'tag',
 		'name',
-		'rawObject'
+		'rawObject',
+		'application'
 	],
 	#category : #'CoUsageMap-Model'
 }
+
+{ #category : #accessing }
+MiCoTaggedObject >> application [
+
+	^ application
+]
+
+{ #category : #accessing }
+MiCoTaggedObject >> application: anObject [
+
+	application := anObject
+]
 
 { #category : #accessing }
 MiCoTaggedObject >> name [
