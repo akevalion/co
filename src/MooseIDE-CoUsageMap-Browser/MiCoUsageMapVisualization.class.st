@@ -5,18 +5,18 @@ Class {
 	#name : #MiCoUsageMapVisualization,
 	#superclass : #MiAbstractVisualization,
 	#instVars : [
-		'legendTag'
+		'coUsageMap'
 	],
 	#category : #'MooseIDE-CoUsageMap-Browser'
 }
 
 { #category : #brokerage }
 MiCoUsageMapVisualization >> consume: aTag [
- 	
-	legendTag removeOldLegend.
+	| legendTag |
+	legendTag := coUsageMap legendTag.
 	legendTag tagsFromMooseModel: self owner classModel mooseModel.
-	"legendTag build."
-	legendTag canvas signalUpdate.
+	legendTag build.
+	coUsageMap updateShapeColors.
 ]
 
 { #category : #highlighting }
@@ -33,24 +33,28 @@ MiCoUsageMapVisualization >> initialize [
 
 { #category : #brokerage }
 MiCoUsageMapVisualization >> remove: aTag [
-
-	legendTag removeOldLegend.
+	| canvas legendTag |
+	canvas := coUsageMap canvas.
+	legendTag := coUsageMap legendTag.
+	
+	"updating legend"
 	legendTag tagsFromMooseModel: self owner classModel mooseModel.
-	legendTag build
+	legendTag build.
+	
+	coUsageMap markManager removeTag: aTag.
+	canvas signalUpdate.
 ]
 
 { #category : #running }
 MiCoUsageMapVisualization >> run [
-	| model v |
+	| model |
 	super run.
 	model := self owner classModel.
-	v := MiCoUsageMapMooseBuilder new.
-	v container: self canvas.
-	v attributes: model attributes.
-	v methods: model methods.
-	v application: self owner application.
-	legendTag := v legendTag.
+	coUsageMap := MiCoUsageMapMooseBuilder new.
+	coUsageMap container: self canvas.
+	coUsageMap attributes: model attributes.
+	coUsageMap methods: model methods.
+	coUsageMap application: self owner application.
 	self consume: nil.
-	v build.
-	
+	coUsageMap build.
 ]

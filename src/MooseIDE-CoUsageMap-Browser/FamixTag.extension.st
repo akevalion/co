@@ -25,12 +25,13 @@ FamixTag >> asMiCoTag [
 
 { #category : #'*MooseIDE-CoUsageMap-Browser' }
 FamixTag >> removeReference: aMiCoTaggedObject [
-
-	| tagAssociation |
-	tagAssociation :=  aMiCoTaggedObject rawObject allTagAssociations detect: [ :assoc | assoc tag = self ].
-	
+	| tagAssociation app |
+	tagAssociation :=  aMiCoTaggedObject rawObject allTagAssociations 
+		detect: [ :assoc | assoc tag = self ]
+		ifNone: [ nil ].
 	aMiCoTaggedObject rawObject removeTag: self.
-	aMiCoTaggedObject application ifNotNil: [ :app | 
-		app removeItem: tagAssociation  ]
+	app := aMiCoTaggedObject application.
+	(app notNil and: [ tagAssociation notNil ])
+		ifTrue: [ app removeItem: tagAssociation  ]
 	
 ]

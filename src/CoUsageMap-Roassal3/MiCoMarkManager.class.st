@@ -15,11 +15,11 @@ Class {
 
 { #category : #public }
 MiCoMarkManager >> automaticColor [
-	| lastTag |
-	lastTag := self lastTagSelected.
-	self coUsageMap miMethods 
-		do:[:met | self automaticColorForMethod: met ].
-	self lastTagSelected: lastTag
+	self changeTagsDuring: [ 
+		self coUsageMap miMethods 
+			do:[:met | self automaticColorForMethod: met ].
+	]
+	
 ]
 
 { #category : #public }
@@ -46,6 +46,14 @@ MiCoMarkManager >> automaticColorForMethod: aMiCoMethod [
 	
 	
 	
+]
+
+{ #category : #public }
+MiCoMarkManager >> changeTagsDuring: aBlockClosure [
+	| lastTag |
+	lastTag := self lastTagSelected.
+	aBlockClosure value.
+	self lastTagSelected: lastTag
 ]
 
 { #category : #events }
@@ -130,6 +138,17 @@ MiCoMarkManager >> lastTagSelected: aMiCoTag [
 MiCoMarkManager >> onShape: aShape [
 	aShape addInteraction: menuInteraction.
 	aShape when: RSMouseClick send: #clickOn: to: self.
+]
+
+{ #category : #public }
+MiCoMarkManager >> removeTag: aMiCoTag [
+	self changeTagsDuring: [ 
+		self coUsageMap miMethods, self coUsageMap miAttributes
+			select: [:each | each tag = aMiCoTag ]
+			thenDo: [:each | 
+				each traceCr.
+				self setTag: nil onAttribute: each ].
+	]
 ]
 
 { #category : #public }

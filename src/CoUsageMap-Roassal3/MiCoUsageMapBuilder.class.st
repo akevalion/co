@@ -326,7 +326,9 @@ MiCoUsageMapBuilder >> renderIn: aCanvas [
 	shapes := self miMethods collect: [ :met | self methodShapeFor: met ].
 	aCanvas addAll: shapes.
 	self defaultLayout on: shapes.
-	self legendTag renderIn: aCanvas.
+	self legendTag
+		container: aCanvas;
+		build.
 	
 	aCanvas addInteraction: self markManager.
 	aCanvas @ self canvasController
@@ -381,4 +383,12 @@ MiCoUsageMapBuilder >> unhighlight: evt [
 	evt canvas removeKey: key.
 	evt signalUpdate.
 	
+]
+
+{ #category : #public }
+MiCoUsageMapBuilder >> updateShapeColors [
+	self canvas allChildren
+		select: [ :shape | shape model notNil ]
+		thenDo: [ :shape | shape color: (self markManager tagColorFrom: shape model tag) ].
+	self canvas signalUpdate.
 ]

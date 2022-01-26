@@ -15,13 +15,11 @@ Class {
 
 { #category : #accessing }
 MiCoTaggedObject >> application [
-
 	^ application
 ]
 
 { #category : #accessing }
 MiCoTaggedObject >> application: anObject [
-
 	application := anObject
 ]
 

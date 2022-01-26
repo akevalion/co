@@ -63,7 +63,6 @@ MiCoAttribute >> printForMethod: aMicoMethod on: stream [
 
 { #category : #accessing }
 MiCoAttribute >> usedInMethods [
-
 	^ usedInMethods
 ]
 

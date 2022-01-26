@@ -23,7 +23,6 @@ MiCoMethod >> initialize [
 
 { #category : #accessing }
 MiCoMethod >> usedAttributes [
-
 	^ usedAttributes
 ]
 
