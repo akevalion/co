@@ -56,7 +56,6 @@ MiCoTagVisualization >> legendShapeRenderIn: aCanvas [
 	| legendShape |
 	legendShape := shapes asShape
 		padding: 10;
-		draggable;
 		color: (Color white alpha: 0.8);
 		isFixed: true;
 		border: (RSBorder new color: Color lightGray; width: 0.5);
@@ -65,8 +64,9 @@ MiCoTagVisualization >> legendShapeRenderIn: aCanvas [
 	aCanvas 
 		when: RSExtentChangedEvent 
 		do: [ :evt | self moveLegend: legendShape toCornerIn: evt canvas ].
-
+	
 	aCanvas addShape: legendShape.
+	self moveLegend: legendShape toCornerIn: aCanvas.
 ]
 
 { #category : #hooks }
@@ -83,6 +83,7 @@ MiCoTagVisualization >> moveLegend: legendShape toCornerIn: aCanvas [
 { #category : #public }
 MiCoTagVisualization >> removeOldLegend [
 	| canvas legendShape |
+	
 	canvas := self canvas.
 	legendShape := canvas fixedShapes 
 		detect: [ :shape | shape class = RSComposite ] 

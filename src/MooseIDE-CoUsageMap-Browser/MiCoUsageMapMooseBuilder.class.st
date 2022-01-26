@@ -29,20 +29,26 @@ MiCoUsageMapMooseBuilder >> defaultTester [
 
 { #category : #initialization }
 MiCoUsageMapMooseBuilder >> initializeAttributes [
+	| tags |
 	miAttributes := attributes collect: [ :att |
+		tags := att allTagAssociations collect: [ :asso | asso tag ].
 		MiCoAttribute new
 			name: att name;
 			rawObject: att;
+			tag: (tags ifEmpty: [ nil ] ifNotEmpty: [ tags anyOne ]) ;
 			application: self application;
 			yourself ] as: OrderedCollection
 ]
 
 { #category : #initialization }
 MiCoUsageMapMooseBuilder >> initializeMethods [
-	miMethods := methods collect: [ :met | 
+	| tags |
+	miMethods := methods collect: [ :met |
+		tags := met allTagAssociations collect: [ :asso | asso tag ].
 		MiCoMethod new
 			name: met name;
 			rawObject: met;
+			tag: (tags ifEmpty: [ nil ] ifNotEmpty: [ tags anyOne ]) ;
 			application: self application;
 			yourself ] as: OrderedCollection.
 ]

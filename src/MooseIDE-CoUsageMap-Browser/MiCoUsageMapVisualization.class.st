@@ -12,10 +12,11 @@ Class {
 
 { #category : #brokerage }
 MiCoUsageMapVisualization >> consume: aTag [
-
+ 	
 	legendTag removeOldLegend.
 	legendTag tagsFromMooseModel: self owner classModel mooseModel.
-	legendTag build
+	"legendTag build."
+	legendTag canvas signalUpdate.
 ]
 
 { #category : #highlighting }
