@@ -97,7 +97,9 @@ MiCoMarkManager >> createGlobalMenuOn: menu [
 			target: self
 			selector: #automaticColor
 			argumentList: #())
-		icon: (self iconNamed: #smallPaint)
+		icon: (self iconNamed: #smallPaint).
+	menu addMorphBack: 'Method group threshold:' asStringMorph.
+	menu addMorphBack: self newSlider.
 ]
 
 { #category : #'building - menus' }
@@ -106,6 +108,11 @@ MiCoMarkManager >> createMenuOn: menu for: aShape [
 		ifTrue: [ aShape model createMenuOn: menu markManager: self ]
 		ifFalse: [ self createGlobalMenuOn: menu ].
 	
+]
+
+{ #category : #'building - menus' }
+MiCoMarkManager >> fixMenuMouseFocus: evt [
+	evt morph currentWorld activeHand newMouseFocus: evt morph owner
 ]
 
 { #category : #'building - menus' }
@@ -132,6 +139,26 @@ MiCoMarkManager >> lastTagSelected [
 { #category : #accessing }
 MiCoMarkManager >> lastTagSelected: aMiCoTag [ 
 	lastTagSelected := aMiCoTag
+]
+
+{ #category : #'building - menus' }
+MiCoMarkManager >> newSlider [
+	| canvas morph |
+	canvas := RSCanvas new.
+	MiCoSlider new
+		container: canvas;
+		getValueSelector: #threshold;
+		setValueSelector: #threshold:;
+		model: (self strategies detect: [ :s | s class = MiCo75PercentageMarkStrategy ]);
+		build.
+	canvas color: Color transparent.
+	morph := canvas createMorph.
+	morph extent: 200@15.
+	canvas 
+		when: RSMouseClick send: #fixMenuMouseFocus: to: self;
+		when: RSMouseDragEnd send: #fixMenuMouseFocus: to: self;
+		when: RSMouseMove send: #fixMenuMouseFocus: to: self.
+	^ morph
 ]
 
 { #category : #hooks }

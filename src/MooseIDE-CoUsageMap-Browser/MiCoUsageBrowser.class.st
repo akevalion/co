@@ -32,7 +32,7 @@ MiCoUsageBrowser class >> open [
 
 { #category : #accessing }
 MiCoUsageBrowser class >> title [ 
-	^ 'Co usage map'
+	^ 'Co Usage Map'
 ]
 
 { #category : #accessing }
